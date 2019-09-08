@@ -48,6 +48,9 @@
 					data: $('#form').serialize(),
 					success: function(data){
 						if(data=='1'){
+							alert('존재하지 않는 회원입니다, 다시 로그인해주세요.');
+						} 
+						if(data=='2'){
 							// 정상 로그인
 							// session에 아이디 저장
 							alert(id);
@@ -55,13 +58,10 @@
 							alert('정상적으로 로그인되었습니다.');
 							alert('session: '+sessionStorage.getItem("login"));
 						} 
-						if(data=='2'){
+						if(data=='3'){
 							// 미인증 회원
 							// 인증 이메일 요청
 							alert('미인증 회원입니다, 인증해주세요.');
-						} 
-						if(data=='3'){
-							alert('존재하지 않는 회원입니다, 다시 로그인해주세요.');
 						} 
 						if(data=='4'){
 							alert('비밀번호 불일치, 다시 로그인해주세요.');
