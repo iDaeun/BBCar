@@ -43,14 +43,14 @@
 		class="org.apache.commons.dbcp2.BasicDataSource"
 		p:driverClassName="com.mysql.cj.jdbc.Driver"
 		p:url="jdbc:mysql://ycar.cqwfflmguul9.ap-northeast-2.rds.amazonaws.com:3306/ycar?characterEncoding=utf-8&amp;serverTimezone=UTC"
-		p:username="admin" p:password="admin" />
+		p:username="admin" p:password="dusck123" />
 
 	<!-- Mybatis설정 : dataSource, mapper경로 -->
 	<beans:bean id="sqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<beans:property name="dataSource" ref="dataSource" />
 		<beans:property name="mapperLocations"
-			value="classpath:com/petsite/members/myBatis/*.xml">
+			value="classpath:com/ycar/passenger/myBatis/*.xml">
 		</beans:property>
 	</beans:bean>
 
