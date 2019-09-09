@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <title>Ecoland - Free Bootstrap 4 Template by Colorlib</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -22,6 +23,20 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        #form {
+            display: none;
+        }
+
+        #findIdForm {
+            display: none;
+        }
+
+        #findPwForm {
+            display: none;
+        }
+    </style>
 </head>
 
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -54,6 +69,8 @@
 
                 <div class="comment-form-wrap pt-5">
                     <!--<h3 class="mb-3 bread">Login</h3>-->
+
+                    <!--로그인 폼-->
                     <form id="form" class="p-5 bg-light">
                         <div class="form-group">
                             <label for="name">ID</label>
@@ -71,12 +88,54 @@
                                 <img style="width: 100%" src="images/kakao_account_login_btn_medium_narrow.png" /></a>
                         </div>
                         <div style="overflow: hidden" class="form-group">
-                            <a style="float: left" href="#">아이디 찾기</a>
-                            <a style="float: right" href="#">비밀번호 찾기</a>
+                            <a style="float: left" href="javascript:findId()">아이디 찾기</a>
+                            <a style="float: right" href="javascript:findPw()">비밀번호 찾기</a>
                         </div>
                         <div style="text-align: center" class="form-group">
                             <a href="#">아직 회원이 아니신가요?</a>
                         </div>
+                    </form>
+
+                    <!--아이디찾기 폼-->
+                    <form id="findIdForm" class="p-5 bg-light">
+                        <label for="name">ID 찾기</label>
+                        <div class="form-group">
+                            <input class="form-control" type="text" id="name" name="name" placeholder="이름(실명)" required>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="email" id="email" name="email" placeholder="이메일" required>
+                        </div>
+                        <div class="form-group">
+                            <input style="width: 100%" type="submit" value="입력 완료" class="btn py-3 px-4 btn-primary">
+                        </div>
+                        <div style="text-align: center" class="form-group">
+                            <a href="javascript:findPw()">비밀번호 찾기</a>
+                        </div>
+                        <div style="text-align: center" class="form-group">
+                            <a href="#">아직 회원이 아니신가요?</a>
+                        </div>
+                        <span><i class="ion-ios-arrow-back" onclick="#"> BACK</i></span>
+                    </form>
+
+                    <!--비밀번호찾기 폼-->
+                    <form id="findPwForm" class="p-5 bg-light">
+                        <label for="name">PW 찾기</label>
+                        <div class="form-group">
+                            <input class="form-control" type="text" id="name" name="name" placeholder="이름(실명)" required>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="email" id="email" name="email" placeholder="이메일" required>
+                        </div>
+                        <div class="form-group">
+                            <input style="width: 100%" type="submit" value="입력 완료" class="btn py-3 px-4 btn-primary">
+                        </div>
+                        <div style="text-align: center" class="form-group">
+                            <a href="javascript:findId()">아이디 찾기</a>
+                        </div>
+                        <div style="text-align: center" class="form-group">
+                            <a href="#">아직 회원이 아니신가요?</a>
+                        </div>
+                        <span><i class="ion-ios-arrow-back" onclick="#"> BACK</i></span>
                     </form>
                 </div>
             </div>
@@ -115,35 +174,40 @@
 
         $(document).ready(function() {
 
-            $('#form').submit(function() {
+            if (sessionStorage.getItem("login") == null) {
 
-                var id = $('#id').val();
+                $('#form').css('display', 'block');
 
-                $.ajax({
-                    url: 'http://localhost:9090/passenger/members/login',
-                    type: 'POST',
-                    data: $('#form').serialize(),
-                    success: function(data) {
-                        if (data == '1') {
-                            alert('존재하지 않는 회원입니다, 다시 로그인해주세요.');
-                        }
-                        if (data == '2') {
-                            // 정상 로그인
-                            // session에 아이디 저장
-                            alert(id);
-                            sessionStorage.setItem("login", id);
-                            alert('정상적으로 로그인되었습니다.');
-                            alert('session: ' + sessionStorage.getItem("login"));
-                            $('#form').css('display', 'none');
+                $('#form').submit(function() {
 
+                    var id = $('#id').val();
+
+                    $.ajax({
+                        url: 'http://localhost:9090/passenger/members/login',
+                        type: 'POST',
+                        data: $('#form').serialize(),
+                        success: function(data) {
+                            if (data.msg == '1') {
+                                alert('존재하지 않는 회원입니다, 다시 로그인해주세요.');
+                            }
+                            if (data.msg == '2') {
+                                // 정상 로그인
+                                // session에 아이디 저장 : object 형식 (idx,id,nickname)
+                                alert(data.msg);
+                                alert(JSON.stringify(data.login));
+                                sessionStorage.setItem("login", JSON.stringify(data.login));
+                                alert('정상적으로 로그인되었습니다.');
+                                $('#form').css('display', 'none');
+
+                            }
+                            if (data.msg == '3') {
+                                alert('비밀번호 불일치, 다시 로그인해주세요.');
+                            }
                         }
-                        if (data == '3') {
-                            alert('비밀번호 불일치, 다시 로그인해주세요.');
-                        }
-                    }
+                    });
+                    return false;
                 });
-                return false;
-            });
+            }
         });
 
         // 카카오 로그인
@@ -152,18 +216,14 @@
             Kakao.Auth.login({
                 success: function(authObj) {
 
-                    alert('Auth.login >>>>> ' + JSON.stringify(authObj));
-
-                    // 정보 확인 -> id(email) session에 저장
+                    // 정보 확인 -> session에 저장
                     Kakao.API.request({
                         url: '/v2/user/me',
                         success: function(res) {
-                            alert('API.request >>>>> ' + JSON.stringify(res));
                             var id = res.id;
 
                             sessionStorage.setItem("login", id);
                             alert('정상적으로 로그인되었습니다.');
-                            alert('session: ' + sessionStorage.getItem("login"));
 
                         },
                         fail: function(error) {
@@ -176,6 +236,58 @@
                     alert('[카카오]로그인 실패');
                 }
             });
+        };
+
+        // ID찾기
+        function findId() {
+            $('#form').css('display', 'none');
+            $('#findPwForm').css('display', 'none');
+            $('#findIdForm').css('display', 'block');
+
+            $('#findIdForm').submit(function() {
+                $.ajax({
+                    url: 'http://localhost:9090/passenger/members/login/findId',
+                    type: 'GET',
+                    data: $('#findIdForm').serialize(),
+                    success: function(data) {
+                        if (data == 1) {
+                            alert('해당 이메일 주소로 아이디 정보를 발송하였습니다');
+                            $('#findIdForm').css('display', 'none');
+                            $('#form').css('display', 'block');
+                        }
+                        if (data == 2) {
+                            alert('없는 정보이거나 일치하지 않는 정보입니다, 다시 입력해주세요');
+                        }
+                    }
+                });
+                return false;
+            })
+        };
+
+        // PW찾기
+        function findPw() {
+            $('#form').css('display', 'none');
+            $('#findIdForm').css('display', 'none');
+            $('#findPwForm').css('display', 'block');
+
+            $('#findPwForm').submit(function() {
+                $.ajax({
+                    url: 'http://localhost:9090/passenger/members/login/findPw',
+                    type: 'GET',
+                    data: $('#findPwForm').serialize(),
+                    success: function(data) {
+                        if (data == 1) {
+                            alert('해당 이메일 주소로 임시 비밀번호를 발송하였습니다');
+                            $('#findPwForm').css('display', 'none');
+                            $('#form').css('display', 'block');
+                        }
+                        if (data == 2) {
+                            alert('없는 정보이거나 일치하지 않는 정보입니다, 다시 입력해주세요');
+                        }
+                    }
+                });
+                return false;
+            })
         };
     </script>
 

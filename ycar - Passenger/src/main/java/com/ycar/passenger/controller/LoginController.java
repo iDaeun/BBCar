@@ -1,7 +1,11 @@
 package com.ycar.passenger.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,19 +17,35 @@ import com.ycar.passenger.service.LoginService;
 @CrossOrigin
 @RequestMapping("/members/login")
 public class LoginController {
-	
+
 	@Autowired
 	private LoginService loginService;
-	
+
+	// 로그인
 	@PostMapping
-	public int login(
-			@RequestParam("id") String id,
-			@RequestParam("pw") String pw
-			) {
+	public Map<String,Object> login(@RequestParam("id") String id, @RequestParam("pw") String pw) {
 		
-		int msg = loginService.login(id,pw);
-		
-		return msg;
+		Map<String,Object> map = new HashMap<String, Object>();
+		map = loginService.login(id, pw);
+
+		return map;
 	}
-	
+
+	// 아이디 찾기
+	@GetMapping("/findId")
+	public int findId(@RequestParam("name") String name, @RequestParam("email") String email) {
+
+		int result = loginService.findId(name, email);
+
+		return result;
+	}
+
+	// 비밀번호 찾기
+	@GetMapping("/findPw")
+	public int findPw(@RequestParam("name") String name, @RequestParam("email") String email) {
+
+		int result = loginService.findPw(name, email);
+
+		return result;
+	}
 }

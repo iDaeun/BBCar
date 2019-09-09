@@ -1,7 +1,7 @@
 package com.ycar.passenger.domain;
 
 public class PassengerInfo {
-	private int idx;
+	private int p_idx;
 	private String id;
 	private String pw;
 	private String name;
@@ -10,13 +10,8 @@ public class PassengerInfo {
 	private char gender;
 	private char verify;
 	private String code;
+	private String type;
 	
-	public int getIdx() {
-		return idx;
-	}
-	public void setIdx(int idx) {
-		this.idx = idx;
-	}
 	public String getId() {
 		return id;
 	}
@@ -66,13 +61,19 @@ public class PassengerInfo {
 		this.code = code;
 	}
 	
-	@Override
-	public String toString() {
-		return "PassengerInfo [idx=" + idx + ", id=" + id + ", pw=" + pw + ", name=" + name + ", nickname=" + nickname
-				+ ", email=" + email + ", gender=" + gender + ", verify=" + verify + ", code=" + code + "]";
-	}
-	
 	public boolean pwMatch(String pw) {
 		return this.getPw().equals(pw);
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public int getP_idx() {
+		return p_idx;
+	}
+	public void setP_idx(int p_idx) {
+		this.p_idx = p_idx;
 	}
 }
