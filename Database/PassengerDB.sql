@@ -70,5 +70,12 @@ ALTER TABLE ycar.P_ROUTE
 			p_idx
 		);
         
-        
+SELECT * FROM ycar.PASSENGER;
+update ycar.PASSENGER set verify='Y' where id='passengerA';
+select * from ycar.PASSENGER where id='passengerA';
+
+insert into ycar.PASSENGER (id,nickname,email,verify,type) values ('passengerKakao','kakaokakao','ekdms2309@naver.com','Y','kakao');
+update ycar.PASSENGER set id='1165366390' where id='passengerKakao';
+
+drop table P_COMPANY;
 

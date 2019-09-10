@@ -41,7 +41,7 @@ public class LoginService {
 		// 아이디 존재 여부 확인
 		PassengerInfo info = dao.selectById(id);
 
-		if (info == null) {
+		if (info.getType() != null || info == null) {
 			msg = 1; // 존재하지 않는 회원
 			map.put("msg", 1);
 		} else if (info.getVerify() == 'Y' && info.pwMatch(pw)) {
@@ -57,6 +57,19 @@ public class LoginService {
 		// encoder.matches(pw, passengerInfo.getPw())
 		// !encoder.matches(pw, passengerInfo.getPw())
 
+		return map;
+	}
+	
+
+	public Map<String, Object> kakaoLogin(String id) {
+		
+		dao = template.getMapper(PassengerDao.class);
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		PassengerInfo info = dao.selectById(id);
+		LoginInfo loginInfo = new LoginInfo(info.getP_idx(), info.getId(), info.getNickname());
+		map.put("login", loginInfo);
+		
 		return map;
 	}
 
@@ -166,4 +179,5 @@ public class LoginService {
 		}
 		return cnt;
 	}
+
 }

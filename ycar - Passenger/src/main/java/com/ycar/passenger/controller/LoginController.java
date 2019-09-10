@@ -6,8 +6,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,10 +25,20 @@ public class LoginController {
 
 	// 로그인
 	@PostMapping
-	public Map<String,Object> login(@RequestParam("id") String id, @RequestParam("pw") String pw) {
-		
-		Map<String,Object> map = new HashMap<String, Object>();
+	public Map<String, Object> login(@RequestParam("id") String id, @RequestParam("pw") String pw) {
+
+		Map<String, Object> map = new HashMap<String, Object>();
 		map = loginService.login(id, pw);
+
+		return map;
+	}
+
+	// 카카오 로그인
+	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
+	public Map<String, Object> kakaoLogin(@PathVariable("id") String id) {
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map = loginService.kakaoLogin(id);
 
 		return map;
 	}
