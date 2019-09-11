@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,16 +26,19 @@ public class LoginController {
 
 	// 로그인
 	@PostMapping
-	public Map<String, Object> login(@RequestParam("id") String id, @RequestParam("pw") String pw) {
+	public Map<String, Object> login(@RequestBody Map<String,String> map) {
 
-		Map<String, Object> map = new HashMap<String, Object>();
-		map = loginService.login(id, pw);
+		String id = map.get("id");
+		String pw = map.get("pw");
+				
+		Map<String, Object> maps = new HashMap<String, Object>();
+		maps = loginService.login(id, pw);
 
-		return map;
+		return maps;
 	}
 
 	// 카카오 로그인
-	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public Map<String, Object> kakaoLogin(@PathVariable("id") String id) {
 
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -60,4 +64,5 @@ public class LoginController {
 
 		return result;
 	}
+	
 }

@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -83,6 +85,7 @@
     <script src="js/google-map.js"></script>
 
     <script src="js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script>
         function userType(num) {
             sessionStorage.setItem("userType", num);

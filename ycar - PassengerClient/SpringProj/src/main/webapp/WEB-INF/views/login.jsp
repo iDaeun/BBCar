@@ -190,21 +190,21 @@
                     var id = $('#id').val();
 
                     $.ajax({
-                        url: 'http://localhost:9090/passenger/members/login',
+                        url: 'http://localhost:9090/pClient/login',
                         type: 'POST',
                         data: $('#form').serialize(),
                         success: function(data) {
-                            if (data.msg == '1') {
+                            if (data == '1') {
                                 alert('존재하지 않는 회원입니다, 다시 로그인해주세요.');
                             }
-                            if (data.msg == '2') {
+                            if (data == '2') {
                                 // 정상 로그인
                                 // session에 아이디 저장 : object 형식 (idx,id,nickname)
-                                sessionStorage.setItem("login", JSON.stringify(data.login));
+                                //sessionStorage.setItem("login", JSON.stringify(data.login));
                                 alert('정상적으로 로그인되었습니다.');
                                 $('#form').css('display', 'none');
                             }
-                            if (data.msg == '3') {
+                            if (data == '3') {
                                 alert('비밀번호 불일치, 다시 로그인해주세요.');
                             }
                         }
@@ -225,14 +225,14 @@
                         url: '/v2/user/me',
                         success: function(res) {
                             var id = res.id;
-                            alert(id);
                             $.ajax({
-                                url: 'http://localhost:9090/passenger/members/login/' + id,
+                                url: 'http://localhost:9090/pClient/login/' + id,
                                 type: 'POST',
                                 success: function(data) {
-                                    sessionStorage.setItem("login", JSON.stringify(data.login));
+                                    //sessionStorage.setItem("login", JSON.stringify(data.login));
+                                    if(data=='success'){
                                     alert('정상적으로 로그인되었습니다.');
-                                    $('#form').css('display', 'none');
+                                    $('#form').css('display', 'none');}                                   
                                 }
                             });
                         },
