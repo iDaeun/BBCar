@@ -1,4 +1,4 @@
-package filter;
+package com.ycar.pClient.filter;
 
 import java.io.IOException;
 
@@ -8,12 +8,11 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter({"/mypage/*"})
+
 public class LoginCheckFilter implements Filter {
 
 	@Override
@@ -42,7 +41,7 @@ public class LoginCheckFilter implements Filter {
 		if (loginChk) {
 			chain.doFilter(request, response);
 		} else {
-			res.sendRedirect("http://localhost:9090/ycar-PassengerRestClient/login.jsp");
+			res.sendRedirect("http://localhost:9090/pClient/login.jsp");
 		}
 	}
 
