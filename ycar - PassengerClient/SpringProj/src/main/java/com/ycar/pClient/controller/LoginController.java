@@ -29,9 +29,10 @@ public class LoginController {
 	}
 
 	// 로그인 기능
-	@PostMapping
+	@RequestMapping(value = "/{userType}", method = RequestMethod.POST)
 	@ResponseBody
-	public int login(@RequestParam("id") String id, @RequestParam("pw") String pw, HttpServletRequest request) {
+	public int login(@RequestParam("id") String id, @RequestParam("pw") String pw,
+			@PathVariable("userType") int userType, HttpServletRequest request) {
 
 		RestTemplate rt = new RestTemplate();
 
@@ -39,9 +40,16 @@ public class LoginController {
 		map.put("id", id);
 		map.put("pw", pw);
 
-		// REST SERVER와 통신
+		// userType에 따라 탑승자 or 운전자 분기처리 (REST SERVER와 통신)
+		// 1 = 탑승자 모드 , 2 = 운전자 모드
 		Map<String, Object> maps = new HashMap<String, Object>();
-		maps = rt.postForObject("http://localhost:9090/passenger/members/login", map, Map.class);
+
+		if (userType == 1) {
+			maps = rt.postForObject("http://localhost:9090/passenger/members/login", map, Map.class);
+		}
+		if (userType == 2) {
+			// 운전자 SERVER로 전달하기!!
+		}
 
 		// 로그인 성공 시 session에 저장
 		HttpSession session = request.getSession(false);
@@ -53,20 +61,30 @@ public class LoginController {
 	}
 
 	// 카카오 로그인
-	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/kakao/{id}/{userType}", method = RequestMethod.POST)
 	@ResponseBody
-	public String login(@PathVariable("id") String id, HttpServletRequest request) {
+	public String login(@PathVariable("id") String id, @PathVariable("userType") int userType,
+			HttpServletRequest request) {
+				
 		RestTemplate rt = new RestTemplate();
 
-		// REST SERVER와 통신
+		// userType에 따라 탑승자 or 운전자 분기처리 (REST SERVER와 통신)
+		// 1 = 탑승자 모드 , 2 = 운전자 모드
 		Map<String, Object> maps = new HashMap<String, Object>();
-		//maps = rt.postForObject("http://localhost:9090/passenger/members/login/{id}", id, Map.class);
-		maps = rt.getForObject("http://localhost:9090/passenger/members/login/{id}", Map.class, id);
+
+		if (userType == 1) {
+			// maps = rt.postForObject("http://localhost:9090/passenger/members/login/{id}",
+			// id, Map.class);
+			maps = rt.getForObject("http://localhost:9090/passenger/members/login/{id}", Map.class, id);
+		}
+		if (userType == 2) {
+			// 운전자 SERVER로 전달하기!!
+		}
 
 		// 로그인 성공 시 session에 저장
 		HttpSession session = request.getSession(false);
 		session.setAttribute("login", maps.get("login"));
 
-		return session.getAttribute("login")!=null?"success":"fail";
+		return session.getAttribute("login") != null ? "success" : "fail";
 	}
 }

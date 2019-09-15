@@ -178,19 +178,18 @@
     <script>
         // KAKAO :: 사용할 앱의 JavaScript 키를 설정해 주세요.
         Kakao.init('b4d22862e49da7bced7dc7592288a369');
-
+        
         $(document).ready(function() {
 
-            if (sessionStorage.getItem("login") == null) {
-
+        		var userType = sessionStorage.getItem("userType"); // 메인페이지에서 사용자가 선택한 사용자 타입
                 $('#form').css('display', 'block');
 
                 $('#form').submit(function() {
 
-                    var id = $('#id').val();
+                    //var id = $('#id').val();
 
                     $.ajax({
-                        url: 'http://localhost:9090/pClient/login',
+                        url: 'http://localhost:9090/pClient/login/' + userType,
                         type: 'POST',
                         data: $('#form').serialize(),
                         success: function(data) {
@@ -207,15 +206,20 @@
                             if (data == '3') {
                                 alert('비밀번호 불일치, 다시 로그인해주세요.');
                             }
+                            if (data == '4'){
+                            	alert('개인정보 보호를 위해 임시 비밀번호를 변경해주세요.');
+                            	// 마이페이지 -> 내 정보 수정 (비밀번호 변경에 cursor올리기)
+                            }
                         }
                     });
                     return false;
                 });
-            }
         });
 
         // 카카오 로그인
         function loginWithKakao() {
+        	
+        	var userType = sessionStorage.getItem("userType"); // 메인페이지에서 사용자가 선택한 사용자 타입
             // 로그인 창을 띄웁니다.
             Kakao.Auth.login({
                 success: function(authObj) {
@@ -226,7 +230,7 @@
                         success: function(res) {
                             var id = res.id;
                             $.ajax({
-                                url: 'http://localhost:9090/pClient/login/' + id,
+                                url: 'http://localhost:9090/pClient/login/kakao/' + id + '/' + userType,
                                 type: 'POST',
                                 success: function(data) {
                                     //sessionStorage.setItem("login", JSON.stringify(data.login));

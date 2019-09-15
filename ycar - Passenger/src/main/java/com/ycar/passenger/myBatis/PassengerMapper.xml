@@ -17,5 +17,9 @@
 	<update id="updatePw" parameterType="map">
 	update ycar.PASSENGER set pw = #{pw} where id = #{id}
 	</update>
+	
+	<update id="changeVer">
+	update ycar.PASSENGER set verify = 'N' where id = #{id}
+	</update>
 
 </mapper>

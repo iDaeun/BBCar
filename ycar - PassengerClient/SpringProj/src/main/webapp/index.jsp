@@ -89,6 +89,7 @@
     <script>
         function userType(num) {
             sessionStorage.setItem("userType", num);
+            location.href="http://localhost:9090/pClient/login";
         }
     </script>
 
