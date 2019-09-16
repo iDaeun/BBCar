@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -179,15 +180,18 @@
         // KAKAO :: 사용할 앱의 JavaScript 키를 설정해 주세요.
         Kakao.init('b4d22862e49da7bced7dc7592288a369');
         
+        var userType = sessionStorage.getItem("userType"); // 메인페이지에서 사용자가 선택한 사용자 타입
+        
         $(document).ready(function() {
+        	
+        	if(userType == null){
+        		alert('사용자모드를 먼저 선택해주세요!');
+        		location.href="http://localhost:9090/pClient";
+        	}
 
-        		var userType = sessionStorage.getItem("userType"); // 메인페이지에서 사용자가 선택한 사용자 타입
                 $('#form').css('display', 'block');
 
                 $('#form').submit(function() {
-
-                    //var id = $('#id').val();
-
                     $.ajax({
                         url: 'http://localhost:9090/pClient/login/' + userType,
                         type: 'POST',
@@ -198,8 +202,6 @@
                             }
                             if (data == '2') {
                                 // 정상 로그인
-                                // session에 아이디 저장 : object 형식 (idx,id,nickname)
-                                //sessionStorage.setItem("login", JSON.stringify(data.login));
                                 alert('정상적으로 로그인되었습니다.');
                                 $('#form').css('display', 'none');
                             }
@@ -218,8 +220,7 @@
 
         // 카카오 로그인
         function loginWithKakao() {
-        	
-        	var userType = sessionStorage.getItem("userType"); // 메인페이지에서 사용자가 선택한 사용자 타입
+        	        	
             // 로그인 창을 띄웁니다.
             Kakao.Auth.login({
                 success: function(authObj) {
@@ -233,7 +234,6 @@
                                 url: 'http://localhost:9090/pClient/login/kakao/' + id + '/' + userType,
                                 type: 'POST',
                                 success: function(data) {
-                                    //sessionStorage.setItem("login", JSON.stringify(data.login));
                                     if(data=='success'){
                                     alert('정상적으로 로그인되었습니다.');
                                     $('#form').css('display', 'none');}                                   
@@ -259,10 +259,10 @@
             $('#findPwForm').css('display', 'none');
             $('#findIdForm').css('display', 'block');
         };
-
+		        
         $('#findIdForm').submit(function() {
             $.ajax({
-                url: 'http://localhost:9090/passenger/members/login/findId',
+                url: 'http://localhost:9090/pClient/login/findId/' + userType,
                 type: 'GET',
                 data: $('#findIdForm').serialize(),
                 success: function(data) {
@@ -287,11 +287,11 @@
             $('#form').css('display', 'none');
             $('#findIdForm').css('display', 'none');
             $('#findPwForm').css('display', 'block');
-        };
+           };
 
         $('#findPwForm').submit(function() {
             $.ajax({
-                url: 'http://localhost:9090/passenger/members/login/findPw',
+                url: 'http://localhost:9090/pClient/login/findPw/' + userType,
                 type: 'GET',
                 data: $('#findPwForm').serialize(),
                 success: function(data) {

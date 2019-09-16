@@ -40,6 +40,7 @@
         .ion-ios-arrow-back {
             color: darkgray;
         }
+
     </style>
 </head>
 
@@ -79,6 +80,7 @@
                         <div class="form-group">
                             <label for="name">ID</label>
                             <input class="form-control" type="text" id="id" name="id" required>
+                            <input type="hidden" id="userType" value="{}">
                         </div>
                         <div class="form-group">
                             <label for="email">PW</label>
@@ -176,9 +178,14 @@
         // KAKAO :: 사용할 앱의 JavaScript 키를 설정해 주세요.
         Kakao.init('b4d22862e49da7bced7dc7592288a369');
 
+
+
         $(document).ready(function() {
 
+
+
             if (sessionStorage.getItem("login") == null) {
+
 
                 $('#form').css('display', 'block');
 
@@ -309,6 +316,9 @@
             $('form').css('display', 'none');
             $('#form').css('display', 'block');
         }
+
     </script>
 
-</body></html>
+</body>
+
+</html>

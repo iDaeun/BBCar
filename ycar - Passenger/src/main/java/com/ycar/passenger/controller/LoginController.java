@@ -48,18 +48,24 @@ public class LoginController {
 	}
 
 	// 아이디 찾기
-	@GetMapping("/findId")
-	public int findId(@RequestParam("name") String name, @RequestParam("email") String email) {
-
+	@PostMapping("/findId")
+	public int findId(@RequestBody Map<String,String> map) {
+		
+		String name = map.get("name");
+		String email = map.get("email");
+		
 		int result = loginService.findId(name, email);
 
 		return result;
 	}
 
 	// 비밀번호 찾기
-	@GetMapping("/findPw")
-	public int findPw(@RequestParam("name") String name, @RequestParam("email") String email) {
-
+	@PostMapping("/findPw")
+	public int findPw(@RequestBody Map<String,String> map) {
+		
+		String name = map.get("name");
+		String email = map.get("email");
+		
 		int result = loginService.findPw(name, email);
 
 		return result;
