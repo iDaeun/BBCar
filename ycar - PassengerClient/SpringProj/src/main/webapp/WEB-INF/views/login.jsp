@@ -204,6 +204,7 @@
                                 // 정상 로그인
                                 alert('정상적으로 로그인되었습니다.');
                                 $('#form').css('display', 'none');
+                                location.href="http://localhost:9090/pClient/mypage";
                             }
                             if (data == '3') {
                                 alert('비밀번호 불일치, 다시 로그인해주세요.');

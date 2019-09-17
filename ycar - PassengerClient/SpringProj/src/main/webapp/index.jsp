@@ -45,7 +45,7 @@
                                 <div class="overlay"></div>
                             </div>
                             <div class="bg-primary">
-                                <div class="vr"><span class="pl-3 py-4" style="background-image: url(images/bg_1-1.jpg);">Greece</span></div>
+                                <div class="vr"><span class="pl-3 py-4" style="background-image: url(images/bg_1-1.jpg);">YCAR</span></div>
                             </div>
                         </div>
                         <div class="one-forth d-flex align-items-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">

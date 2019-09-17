@@ -1,11 +1,15 @@
 package com.ycar.pClient.controller;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
+
+import com.ycar.pClient.domain.LoginInfo;
 
 @CrossOrigin
 @Controller
@@ -49,11 +55,21 @@ public class LoginController {
 		if (userType == 2) {
 			// 운전자 SERVER로 전달하기!!
 		}
+		
 
 		// 로그인 성공 시 session에 저장
 		HttpSession session = request.getSession(false);
-		session.setAttribute("login", maps.get("login"));
-
+		LinkedHashMap<String, Object> hashM = new LinkedHashMap<String, Object>();
+		hashM = (LinkedHashMap<String, Object>) maps.get("login");
+		
+		int idx = (int)hashM.get("idx");
+		String nickname = (String)hashM.get("nickname");
+		String email = (String)hashM.get("email");
+		String name = (String)hashM.get("name");
+		LoginInfo info = new LoginInfo(idx,id,nickname,email,name); 
+		
+		session.setAttribute("login", info);
+	
 		// VIEW에 message전달
 		int msg = (int) maps.get("msg");
 		return msg;
@@ -77,10 +93,19 @@ public class LoginController {
 		if (userType == 2) {
 			// 운전자 SERVER로 전달하기!!
 		}
-
+		
 		// 로그인 성공 시 session에 저장
 		HttpSession session = request.getSession(false);
-		session.setAttribute("login", maps.get("login"));
+		LinkedHashMap<String, Object> hashM = new LinkedHashMap<String, Object>();
+		hashM = (LinkedHashMap<String, Object>) maps.get("login");
+				
+		int idx = (int)hashM.get("idx");
+		String nickname = (String)hashM.get("nickname");
+		String email = (String)hashM.get("email");
+		String name = (String)hashM.get("name");
+		LoginInfo info = new LoginInfo(idx,id,nickname,email,name); 
+				
+		session.setAttribute("login", info);
 
 		return session.getAttribute("login") != null ? "success" : "fail";
 	}

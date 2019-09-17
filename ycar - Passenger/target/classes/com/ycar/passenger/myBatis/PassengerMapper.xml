@@ -3,7 +3,7 @@
 
 <mapper namespace="com.ycar.passenger.dao.PassengerDao">
 
-	<!-- 로그인 -->
+	<!-- 로그인, 마이페이지 -->
 	<select id="selectById" resultType="com.ycar.passenger.domain.PassengerInfo">
 	select * from ycar.PASSENGER where id = #{id}
 	</select>
@@ -21,5 +21,4 @@
 	<update id="changeVer">
 	update ycar.PASSENGER set verify = 'N' where id = #{id}
 	</update>
-
 </mapper>

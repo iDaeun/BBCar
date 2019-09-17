@@ -44,7 +44,7 @@ public class LoginService {
 			map.put("msg", 1);
 		} else if (info.getVerify() == 'Y' && info.pwMatch(pw)) {
 			// 인증처리된 회원, 정상 로그인
-			LoginInfo loginInfo = new LoginInfo(info.getP_idx(), info.getId(), info.getNickname());
+			LoginInfo loginInfo = new LoginInfo(info.getP_idx(),info.getNickname(), info.getEmail(), info.getName());
 			map.put("msg", 2);
 			map.put("login", loginInfo);
 		} else if (!info.pwMatch(pw)) {
@@ -68,7 +68,7 @@ public class LoginService {
 		
 		Map<String,Object> map = new HashMap<String, Object>();
 		PassengerInfo info = dao.selectById(id);
-		LoginInfo loginInfo = new LoginInfo(info.getP_idx(), info.getId(), info.getNickname());
+		LoginInfo loginInfo = new LoginInfo(info.getP_idx(), info.getNickname(), info.getEmail(), info.getName());
 		map.put("login", loginInfo);
 		
 		return map;
