@@ -11,17 +11,14 @@
         table {
             border: 3px solid;
         }
-
         #myInfoEdit {
             display: none;
         }
-
     </style>
 </head>
 
 <body>
     <h2>내 정보</h2>
-    <div id='myInfo'></div>
     <table>
         <tr>
             <td>${login.name}</td>
@@ -39,7 +36,7 @@
         </tr>
     </table>
 
-    <form id="myInfoEdit">
+    <div id="myInfoEdit">
         <table>
             <tr>
                 <td>이메일 주소</td>
@@ -66,13 +63,13 @@
                 <td><input type="password" id="pw3" required><span id="pwSpan"></span><input type="checkbox" id="pwCheck"></td>
             </tr>
             <tr>
-                <td><input type="submit" value="수정하기"></td>
+                <td><input type="button" id="edit" value="수정하기"></td>
             </tr>
             <tr>
                 <td><button onclick="backBtn()">취소</button></td>
             </tr>
         </table>
-    </form>
+    </div>
 
     <h2>즐겨찾는 장소</h2>
 
@@ -82,13 +79,25 @@
 	
     <script>
         $(document).ready(function() {
-            $('#myInfoEdit').submit(function(){     
+        	
+        	$('#edit').click(function(){
+        	
+
+            // 공백인 상태에서 수정버튼 눌렀을 시 못가게 막음
+            var pw1 = $('#pw1').val();
+            var pw2 = $('#pw2').val();
+            var pw3 = $('#pw3').val();
             	
-            	if (!$('#pwCheck').prop('checked')) {
+            if(pw1.length<1 || pw2.length<1 || pw3.length<1){
+            	alert('비밀번호를 입력해주세요!');
+            	return false;
+            }
+        	
+        	if (!$('#pwCheck').prop('checked')) {
 					alert('[비말번호 불일치] 다시 확인해주세요!');
 					return false;
-				}
-            	
+			}
+        	            	
             	$.ajax({
             		url: 'http://localhost:9090/passenger/members/mypage',
             		type: 'PUT',
@@ -112,8 +121,8 @@
             		},
             	});
             	return false;
-            });
-            
+        	});
+        	            
         	// 새로운 비밀번호 일치하는지 확인
 			$('#pw3, #pw2').focusout(function() {
 				if ($('#pw2').val() == $('#pw3').val() || $('#pw3').val() == $('#pw2').val()) {
@@ -126,20 +135,16 @@
 					$('#pwCheck').prop('checked', false);
 				}
 			});
-
         });
-
         function editForm() {
             $('#myInfoEdit').css('display', 'block');
         }
-
         function backBtn() {
             $('#pw1').val('');
             $('#pw2').val('');
             $('#pw3').val('');
             $('#myInfoEdit').css('display', 'none');
         }
-
     </script>
 </body>
 
