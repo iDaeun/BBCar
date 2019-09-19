@@ -1,5 +1,6 @@
 package com.ycar.pClient.controller;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -10,7 +11,14 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -78,7 +86,7 @@ public class LoginController {
 	}
 
 	// 카카오 로그인
-	@RequestMapping(value = "/kakao/{id}/{userType}", method = RequestMethod.POST)
+	@RequestMapping(value = "/kakao/{id}/{userType}", method = RequestMethod.GET)
 	@ResponseBody
 	public String kakaoLogin(@PathVariable("id") String id, @PathVariable("userType") int userType,
 			HttpServletRequest request) {
@@ -116,22 +124,27 @@ public class LoginController {
 	}
 
 	// 아이디 찾기
-	@RequestMapping(value = "/findId/{userType}", method = RequestMethod.GET)
+	@RequestMapping(value = "/findId/{userType}", method = RequestMethod.POST)
 	@ResponseBody
 	public int findId(@PathVariable("userType") int userType, @RequestParam("name") String name,
 			@RequestParam("email") String email) {
-				
+		
 		RestTemplate rt = new RestTemplate();
 		
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("name", name);
-		map.put("email",email);
+		MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
+		map.add("name", name);
+		map.add("email", email);
+		
+		
+		HttpHeaders headers = new HttpHeaders();
+		HttpEntity<MultiValueMap<String,String>> entity = new HttpEntity<MultiValueMap<String,String>>(map, headers);
+
 		
 		int result = 0;
 		
 		if(userType == 1) {
-			result = rt.postForObject("http://localhost:9090/passenger/members/login/findId", map, Integer.class);
-			System.out.println(result);
+			result = rt.exchange("http://localhost:9090/passenger/members/login/findId", HttpMethod.POST, entity, Integer.class).getBody();
+			//result = rt.postForObject("http://localhost:9090/passenger/members/login/findId", map, Integer.class);
 		}
 		if (userType == 2) {
 			// 운전자 SERVER로 전달하기!!
@@ -141,7 +154,7 @@ public class LoginController {
 	}
 
 	// 비밀번호 찾기
-	@RequestMapping(value = "/findPw/{userType}", method = RequestMethod.GET)
+	@RequestMapping(value = "/findPw/{userType}", method = RequestMethod.POST)
 	@ResponseBody
 	public int findPw(@PathVariable("userType") int userType, @RequestParam("name") String name,
 			@RequestParam("email") String email) {

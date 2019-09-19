@@ -4,12 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMapping;  
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,10 +51,10 @@ public class LoginController {
 
 	// 아이디 찾기
 	@PostMapping("/findId")
-	public int findId(@RequestBody Map<String,String> map) {
-		
-		String name = map.get("name");
-		String email = map.get("email");
+	public int findId(@RequestBody MultiValueMap<String,String> map) {
+
+		String name = map.getFirst("name");
+		String email = map.getFirst("email");
 		
 		int result = loginService.findId(name, email);
 

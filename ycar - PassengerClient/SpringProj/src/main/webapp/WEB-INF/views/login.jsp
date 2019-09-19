@@ -233,7 +233,7 @@
                             var id = res.id;
                             $.ajax({
                                 url: 'http://localhost:9090/pClient/login/kakao/' + id + '/' + userType,
-                                type: 'POST',
+                                type: 'GET',
                                 success: function(data) {
                                     if(data=='success'){
                                     alert('정상적으로 로그인되었습니다.');
@@ -264,7 +264,7 @@
         $('#findIdForm').submit(function() {
             $.ajax({
                 url: 'http://localhost:9090/pClient/login/findId/' + userType,
-                type: 'GET',
+                type: 'POST',
                 data: $('#findIdForm').serialize(),
                 success: function(data) {
                     if (data == 1) {
@@ -293,7 +293,7 @@
         $('#findPwForm').submit(function() {
             $.ajax({
                 url: 'http://localhost:9090/pClient/login/findPw/' + userType,
-                type: 'GET',
+                type: 'POST',
                 data: $('#findPwForm').serialize(),
                 success: function(data) {
                     if (data == 1) {
