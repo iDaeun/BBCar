@@ -52,7 +52,9 @@ public class LoginService {
 			map.put("msg", 3);
 		} else if (info.getVerify() == 'N' && info.pwMatch(pw)) {
 			// 임시비밀번호 발송된 회원, 비밀번호 변경 유도
+			LoginInfo loginInfo = new LoginInfo(info.getP_idx(),info.getNickname(), info.getEmail(), info.getName());
 			map.put("msg", 4);
+			map.put("login", loginInfo);
 		}
 
 		// encoder.matches(pw, passengerInfo.getPw())
@@ -135,7 +137,10 @@ public class LoginService {
 		if (info != null && info.getType() == null && info.getName().equals(name) && info.getEmail().equals(email)) {
 			
 			// 임시비밀번호 발송 -> verify = N으로 변경
-			dao.changeVer(info.getId());			
+			Map<String,String> map = new HashMap<String, String>();
+			map.put("verify", "N");
+			map.put("id", info.getId());
+			dao.changeVer(map);
 			
 			// 임시 비밀번호 난수 생성
 			Random rand = new Random(System.nanoTime());
@@ -151,10 +156,10 @@ public class LoginService {
 			}
 			
 			// 임시 비밀번호로 DB업데이트
-			Map<String,String> map = new HashMap<String, String>();
-			map.put("pw", sb.toString());
-			map.put("id", info.getId());
-			dao.updatePw(map);
+			Map<String,String> map1 = new HashMap<String, String>();
+			map1.put("pw", sb.toString());
+			map1.put("id", info.getId());
+			dao.updatePw(map1);
 
 			// 해당 아이디 이메일로 발송
 			MimeMessage message = sender.createMimeMessage();

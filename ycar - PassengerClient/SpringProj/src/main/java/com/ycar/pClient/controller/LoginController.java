@@ -67,8 +67,8 @@ public class LoginController {
 		// VIEW에 message전달
 		int msg = (int) maps.get("msg");
 		
-		if(msg==2) {
-			// 로그인 성공 시 session에 저장
+		if(msg==2 || msg == 4) {
+			// 임시비밀번호 발급 회원 & 성공적으로 로그인한 회원 --> session에 저장
 			HttpSession session = request.getSession(false);
 			LinkedHashMap<String, Object> hashM = new LinkedHashMap<String, Object>();
 			hashM = (LinkedHashMap<String, Object>) maps.get("login");

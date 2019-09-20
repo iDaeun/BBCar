@@ -18,6 +18,7 @@
 </head>
 
 <body>
+	<div id="myInfo">
     <h2>내 정보</h2>
     <table>
         <tr>
@@ -35,6 +36,7 @@
             <td colspan="2"><button onclick="editForm()">내 정보 수정</button></td>
         </tr>
     </table>
+    </div>
 
     <div id="myInfoEdit">
         <table>
@@ -80,9 +82,11 @@
     <script>
         $(document).ready(function() {
         	
+        	// 임시비밀번호 발급 회원 로그인 --> 마이페이지에서 비밀번호 수정페이지 띄우기
+        	getParams();
+        	
         	$('#edit').click(function(){
         	
-
             // 공백인 상태에서 수정버튼 눌렀을 시 못가게 막음
             var pw1 = $('#pw1').val();
             var pw2 = $('#pw2').val();
@@ -144,6 +148,32 @@
             $('#pw2').val('');
             $('#pw3').val('');
             $('#myInfoEdit').css('display', 'none');
+            $('#myInfo').css('display','block');
+        }
+        
+        function getParams(){
+        	// 현재 페이지의 url
+			var url = decodeURIComponent(location.href);
+			// url이 encodeURIComponent로 인코딩 되었을 때 다시 디코딩
+			url = decodeURIComponent(url);
+
+			var params;
+			// url에서 '?' 문자 이후의 파라미터 문자열까지 자르기
+			params = url.substring(url.indexOf('?') + 1, url.length);
+			// 파라미터 구분자("&")로 분리
+			params = params.split("&");
+			//alert('params: ' + params);
+			// ("=")로 분리해서 값 받아오기
+			var user = params[0].split("=")[1];
+
+			alert('user: ' + user);
+			
+			if(user == 'temp'){
+				// 정보수정 폼 띄우기
+				alert('비밀번호를 수정해주세요!');
+				$('#myInfo').css('display','none');
+				editForm();
+			}
         }
     </script>
 </body>

@@ -212,6 +212,7 @@
                             if (data == '4'){
                             	alert('개인정보 보호를 위해 임시 비밀번호를 변경해주세요.');
                             	// 마이페이지 -> 내 정보 수정 (비밀번호 변경에 cursor올리기)
+                            	location.href="http://localhost:9090/pClient/mypage?user=temp";
                             }
                         }
                     });
