@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <title>MainPage</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -24,6 +25,33 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <style>
+        .owl-carousel.home-slider .slider-item .slider-text h1 {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        #modeBtn {
+            background-color: #6258A4;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-weight: bold;
+            color: #FFF;
+            border: 0 !important;
+            outline: 0 !important;
+        }
+
+        #modeBtn:hover {
+            background-color: #413A6D;
+        }
+
+        .hero div.vr span:after {
+            background-color: #413A6D;
+        }
+
+    </style>
 </head>
 
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -41,20 +69,20 @@
                 <div class="container-fluid p-0">
                     <div class="row d-md-flex no-gutters slider-text align-items-center justify-content-end" data-scrollax-parent="true">
                         <div class="one-third order-md-last">
-                            <div class="img" style="background-image:url(images/bg_1.jpg);">
+                            <div class="img" style="background-image:url(images/car.jpg);">
                                 <div class="overlay"></div>
                             </div>
                             <div class="bg-primary">
-                                <div class="vr"><span class="pl-3 py-4" style="background-image: url(images/bg_1-1.jpg);">YCAR</span></div>
+                                <div class="vr"><span class="pl-3 py-4" style="background-color: white">YCAR</span></div>
                             </div>
                         </div>
                         <div class="one-forth d-flex align-items-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
                             <div class="text">
-                                <span class="subheading pl-5">YCAR carpooling service</span>
-                                <h1 class="mb-4 mt-3">사용자 모드 선택</h1>
+                                <!--<span class="subheading pl-5">YCAR carpooling service</span>-->
+                                <h1 class="mb-4 mt-3">사용자 모드를 선택해주세요</h1>
 
-                                <p><a href="javascript:userType(1)" class="btn btn-primary px-5 py-3 mt-3">Passenger Mode <span class="ion-ios-arrow-forward"></span></a></p>
-                                <p><a href="javascript:userType(2)" class="btn btn-primary px-5 py-3 mt-3">Driver Mode <span class="ion-ios-arrow-forward"></span></a></p>
+                                <p><a href="javascript:userType(1)" class="btn btn-primary px-5 py-3 mt-3" id="modeBtn">탑승자모드 <span class="ion-ios-arrow-forward"></span></a></p>
+                                <p><a href="javascript:userType(2)" class="btn btn-primary px-5 py-3 mt-3" id="modeBtn">운전자모드 <span class="ion-ios-arrow-forward"></span></a></p>
                             </div>
                         </div>
                     </div>
@@ -89,8 +117,12 @@
     <script>
         function userType(num) {
             sessionStorage.setItem("userType", num);
-            location.href="http://localhost:9090/pClient/login";
+            location.href = "http://localhost:9090/pClient/login";
         }
+
     </script>
 
-</body></html>
+</body>
+
+</html>
+    

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Ecoland - Free Bootstrap 4 Template by Colorlib</title>
+    <title>YCAR카풀</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
     <style>
         #form {
@@ -41,34 +42,47 @@
             color: darkgray;
         }
 
+        .subBtn {
+            color: #514988;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        #modeBtn {
+            background-color: #6258A4;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-weight: bold;
+            color: #FFF;
+            border: 0 !important;
+            outline: 0 !important;
+        }
+
+        #modeBtn:hover {
+            background-color: #413A6D;
+        }
+
+        div.pt-5 {
+            margin: 0 auto;
+        }
+
+        ul.ml-auto>li {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .hero-wrap {
+            margin-bottom: 0;
+            height: 100vh;
+        }
     </style>
 </head>
 
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light site-navbar-target" id="ftco-navbar">
         <div class="container">
-            <a class="navbar-brand" href="index.html">Ecoland</a>
-            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="oi oi-menu"></span> Menu
-            </button>
-
-            <div class="collapse navbar-collapse" id="ftco-nav">
-                <ul class="navbar-nav nav ml-auto">
-                    <li class="nav-item"><a href="index.html#home-section" class="nav-link"><span>Home</span></a></li>
-                    <li class="nav-item"><a href="index.html#services-section" class="nav-link"><span>Services</span></a></li>
-                    <li class="nav-item"><a href="index.html#about-section" class="nav-link"><span>About</span></a></li>
-                    <li class="nav-item"><a href="index.html#destination-section" class="nav-link"><span>Destination</span></a></li>
-                    <li class="nav-item"><a href="index.html#hotel-section" class="nav-link"><span>Hotel</span></a></li>
-                    <li class="nav-item"><a href="index.html#restaurant-section" class="nav-link"><span>Restaurant</span></a></li>
-                    <li class="nav-item"><a href="index.html#blog-section" class="nav-link"><span>Blog</span></a></li>
-                    <li class="nav-item"><a href="index.html#contact-section" class="nav-link"><span>Contact</span></a></li>
-                    <li class="nav-item"><a href="index.html#contact-section" class="nav-link"><span>Contact</span></a></li>
-                </ul>
-            </div>
+            <a class="navbar-brand" style="color: white">YCAR</a>
         </div>
     </nav>
 
-    <section class="hero-wrap" style="background-image: url('images/bg_4.jpg');" data-stellar-background-ratio="0.5">
+    <section class="hero-wrap" style="background-image: url('images/car.jpg'); background-size: 100%" data-stellar-background-ratio="0.5">
         <div class="container">
             <div class="row no-gutters slider-text align-items-center justify-content-start">
 
@@ -80,25 +94,28 @@
                         <div class="form-group">
                             <label for="name">ID</label>
                             <input class="form-control" type="text" id="id" name="id" required>
-                            <input type="hidden" id="userType" value="{}">
                         </div>
                         <div class="form-group">
                             <label for="email">PW</label>
                             <input class="form-control" type="password" id="pw" name="pw" required>
                         </div>
                         <div class="form-group">
-                            <input style="width: 100%" type="submit" value="LOGIN" class="btn py-3 px-4 btn-primary">
+                            <input style="width: 100%" type="submit" value="LOGIN" class="btn py-3 px-4 btn-primary" id="modeBtn">
                         </div>
                         <div class="form-group">
                             <a id="custom-login-btn" href="javascript:loginWithKakao()">
-                                <img style="width: 100%" src="images/kakao_account_login_btn_medium_narrow.png" /></a>
+                                <img style="width: 10%" src="images/kakaolink_btn_medium.png" />
+                                <img style="width: 10%" src="images/btn_google_light_normal_ios@3x.png" />
+                                <img style="width: 10%" src="images/naverBtn.png" />
+                            </a>
+
                         </div>
                         <div style="overflow: hidden" class="form-group">
-                            <a style="float: left" href="javascript:findId()">아이디 찾기</a>
-                            <a style="float: right" href="javascript:findPw()">비밀번호 찾기</a>
+                            <a style="float: left" href="javascript:findId()" class="subBtn">아이디 찾기</a>
+                            <a style="float: right" href="javascript:findPw()" class="subBtn">비밀번호 찾기</a>
                         </div>
                         <div style="text-align: center" class="form-group">
-                            <a href="#">아직 회원이 아니신가요?</a>
+                            <a href="#" class="subBtn">아직 회원이 아니신가요?</a>
                         </div>
                     </form>
 
@@ -112,13 +129,13 @@
                             <input class="form-control" type="email" id="email" name="email" placeholder="이메일" required>
                         </div>
                         <div class="form-group">
-                            <input style="width: 100%" type="submit" value="입력 완료" class="btn py-3 px-4 btn-primary">
+                            <input style="width: 100%" type="submit" value="입력 완료" class="btn py-3 px-4 btn-primary" id="modeBtn">
                         </div>
                         <div style="text-align: center" class="form-group">
-                            <a href="javascript:findPw()">비밀번호 찾기</a>
+                            <a href="javascript:findPw()" class="subBtn">비밀번호 찾기</a>
                         </div>
                         <div style="text-align: center" class="form-group">
-                            <a href="#">아직 회원이 아니신가요?</a>
+                            <a href="#" class="subBtn">아직 회원이 아니신가요?</a>
                         </div>
                         <span><a class="ion-ios-arrow-back" href="javascript:backBtn()"> BACK</a></span>
                     </form>
@@ -133,13 +150,13 @@
                             <input class="form-control" type="email" id="email" name="email" placeholder="이메일" required>
                         </div>
                         <div class="form-group">
-                            <input style="width: 100%" type="submit" value="입력 완료" class="btn py-3 px-4 btn-primary">
+                            <input style="width: 100%" type="submit" value="입력 완료" class="btn py-3 px-4 btn-primary" id="modeBtn">
                         </div>
                         <div style="text-align: center" class="form-group">
-                            <a href="javascript:findId()">아이디 찾기</a>
+                            <a href="javascript:findId()" class="subBtn">아이디 찾기</a>
                         </div>
                         <div style="text-align: center" class="form-group">
-                            <a href="#">아직 회원이 아니신가요?</a>
+                            <a href="#" class="subBtn">아직 회원이 아니신가요?</a>
                         </div>
                         <span><a class="ion-ios-arrow-back" href="javascript:backBtn()"> BACK</a></span>
                     </form>
@@ -172,56 +189,56 @@
 
     <script src="js/main.js"></script>
 
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
     <script>
         // KAKAO :: 사용할 앱의 JavaScript 키를 설정해 주세요.
         Kakao.init('b4d22862e49da7bced7dc7592288a369');
 
-
+        var userType = sessionStorage.getItem("userType"); // 메인페이지에서 사용자가 선택한 사용자 타입
 
         $(document).ready(function() {
 
+            //            if (userType == null) {
+            // alert('사용자모드를 먼저 선택해주세요!');
+            // location.href = "http://localhost:9090/pClient";
+            // }
 
+            $('#form').css('display', 'block');
 
-            if (sessionStorage.getItem("login") == null) {
-
-
-                $('#form').css('display', 'block');
-
-                $('#form').submit(function() {
-
-                    var id = $('#id').val();
-
-                    $.ajax({
-                        url: 'http://localhost:9090/passenger/members/login',
-                        type: 'POST',
-                        data: $('#form').serialize(),
-                        success: function(data) {
-                            if (data.msg == '1') {
-                                alert('존재하지 않는 회원입니다, 다시 로그인해주세요.');
-                            }
-                            if (data.msg == '2') {
-                                // 정상 로그인
-                                // session에 아이디 저장 : object 형식 (idx,id,nickname)
-                                console.log(data.msg);
-                                console.log(data.login);
-                                sessionStorage.setItem("login", JSON.stringify(data.login));
-                                alert('정상적으로 로그인되었습니다.');
-                                $('#form').css('display', 'none');
-                            }
-                            if (data.msg == '3') {
-                                alert('비밀번호 불일치, 다시 로그인해주세요.');
-                            }
+            $('#form').submit(function() {
+                $.ajax({
+                    url: 'http://localhost:9090/pClient/login/' + userType,
+                    type: 'POST',
+                    data: $('#form').serialize(),
+                    success: function(data) {
+                        if (data == '1') {
+                            alert('존재하지 않는 회원입니다, 다시 로그인해주세요.');
                         }
-                    });
-                    return false;
+                        if (data == '2') {
+                            // 정상 로그인
+                            alert('정상적으로 로그인되었습니다.');
+                            $('#form').css('display', 'none');
+                            location.href = "http://localhost:9090/pClient/mypage";
+                        }
+                        if (data == '3') {
+                            alert('비밀번호 불일치, 다시 로그인해주세요.');
+                        }
+                        if (data == '4') {
+                            alert('개인정보 보호를 위해 임시 비밀번호를 변경해주세요.');
+                            // 마이페이지 -> 내 정보 수정 (비밀번호 변경에 cursor올리기)
+                            location.href = "http://localhost:9090/pClient/mypage?user=temp";
+                        }
+                    }
                 });
-            }
+                return false;
+            });
         });
 
         // 카카오 로그인
         function loginWithKakao() {
+
             // 로그인 창을 띄웁니다.
             Kakao.Auth.login({
                 success: function(authObj) {
@@ -231,15 +248,14 @@
                         url: '/v2/user/me',
                         success: function(res) {
                             var id = res.id;
-                            alert(id);
                             $.ajax({
-                                url: 'http://localhost:9090/passenger/members/login/' + id,
-                                type: 'POST',
+                                url: 'http://localhost:9090/pClient/login/kakao/' + id + '/' + userType,
+                                type: 'GET',
                                 success: function(data) {
-                                    alert(JSON.stringify(data.login));
-                                    sessionStorage.setItem("login", JSON.stringify(data.login));
-                                    alert('정상적으로 로그인되었습니다.');
-                                    $('#form').css('display', 'none');
+                                    if (data == 'success') {
+                                        alert('정상적으로 로그인되었습니다.');
+                                        $('#form').css('display', 'none');
+                                    }
                                 }
                             });
                         },
@@ -257,6 +273,7 @@
 
         // ID찾기
         function findId() {
+            $('#id, #pw').val('');
             $('#form').css('display', 'none');
             $('#findPwForm').css('display', 'none');
             $('#findIdForm').css('display', 'block');
@@ -264,8 +281,8 @@
 
         $('#findIdForm').submit(function() {
             $.ajax({
-                url: 'http://localhost:9090/passenger/members/login/findId',
-                type: 'GET',
+                url: 'http://localhost:9090/pClient/login/findId/' + userType,
+                type: 'POST',
                 data: $('#findIdForm').serialize(),
                 success: function(data) {
                     if (data == 1) {
@@ -285,6 +302,7 @@
 
         // PW찾기
         function findPw() {
+            $('#id, #pw').val('');
             $('#form').css('display', 'none');
             $('#findIdForm').css('display', 'none');
             $('#findPwForm').css('display', 'block');
@@ -292,8 +310,8 @@
 
         $('#findPwForm').submit(function() {
             $.ajax({
-                url: 'http://localhost:9090/passenger/members/login/findPw',
-                type: 'GET',
+                url: 'http://localhost:9090/pClient/login/findPw/' + userType,
+                type: 'POST',
                 data: $('#findPwForm').serialize(),
                 success: function(data) {
                     if (data == 1) {
@@ -316,9 +334,7 @@
             $('form').css('display', 'none');
             $('#form').css('display', 'block');
         }
-
     </script>
 
-</body>
-
-</html>
+</body></html>
+	
