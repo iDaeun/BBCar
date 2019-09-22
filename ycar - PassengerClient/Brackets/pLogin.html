@@ -26,14 +26,8 @@
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
     <style>
-        #form {
-            display: none;
-        }
-
-        #findIdForm {
-            display: none;
-        }
-
+        #form,
+        #findIdForm,
         #findPwForm {
             display: none;
         }
@@ -72,6 +66,17 @@
             margin-bottom: 0;
             height: 100vh;
         }
+
+        #loginBtn {
+            width: 201.200px;
+            margin: 0 auto;
+            margin-bottom: 16px;
+        }
+
+        #loginBtn img {
+            width: 100%;
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 
@@ -82,7 +87,7 @@
         </div>
     </nav>
 
-    <section class="hero-wrap" style="background-image: url('images/car.jpg'); background-size: 100%" data-stellar-background-ratio="0.5">
+    <section class="hero-wrap" style="background-image: url('images/car.jpg'); " data-stellar-background-ratio="0.5">
         <div class="container">
             <div class="row no-gutters slider-text align-items-center justify-content-start">
 
@@ -102,13 +107,19 @@
                         <div class="form-group">
                             <input style="width: 100%" type="submit" value="LOGIN" class="btn py-3 px-4 btn-primary" id="modeBtn">
                         </div>
-                        <div class="form-group">
+                        <div id="loginBtn" class="form-group">
                             <a id="custom-login-btn" href="javascript:loginWithKakao()">
-                                <img style="width: 10%" src="images/kakaolink_btn_medium.png" />
-                                <img style="width: 10%" src="images/btn_google_light_normal_ios@3x.png" />
-                                <img style="width: 10%" src="images/naverBtn.png" />
+                                <img src="images/kakao_account_login_btn_medium_narrow.png" />
+                                <!--<img src="images/kakaolink_btn_medium.png" />-->
                             </a>
-
+                            <a href="#">
+                                <img src="images/btn_naver.PNG" />
+                                <!--<img src="images/naverBtn.png" />-->
+                            </a>
+                            <a href="#">
+                                <img src="images/btn_google_signin_light_normal_web@2x.png" />
+                                <!--<img src="images/btn_google_light_normal_ios@2x.png" />-->
+                            </a>
                         </div>
                         <div style="overflow: hidden" class="form-group">
                             <a style="float: left" href="javascript:findId()" class="subBtn">아이디 찾기</a>
@@ -337,4 +348,3 @@
     </script>
 
 </body></html>
-	
