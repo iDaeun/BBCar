@@ -19,7 +19,7 @@ import org.springframework.web.client.RestTemplate;
 @RequestMapping("/mypage")
 public class MypageController {
 
-	// 마이페이지 지정
+	// 마이페이지 로딩
 	@GetMapping
 	public String page() {
 		return "mypage";

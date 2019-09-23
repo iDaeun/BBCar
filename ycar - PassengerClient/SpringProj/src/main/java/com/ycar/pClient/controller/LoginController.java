@@ -35,7 +35,7 @@ import com.ycar.pClient.domain.LoginInfo;
 @RequestMapping("/login")
 public class LoginController {
 
-	// 로그인 페이지 지정
+	// 로그인 페이지 로딩
 	@GetMapping
 	public String page() {
 		return "login";

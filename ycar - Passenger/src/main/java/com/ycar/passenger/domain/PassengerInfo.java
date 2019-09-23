@@ -1,5 +1,5 @@
 package com.ycar.passenger.domain;
-
+// 로그인할 때 사용
 public class PassengerInfo {
 	private int p_idx;
 	private String id;

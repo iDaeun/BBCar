@@ -6,7 +6,7 @@ public class LoginInfo {
 	private String email;
 	private String name;
 	
-	// 로그인 할떄 넘겨주는 용도
+	// 로그인 할때 넘겨주는 용도
 	public LoginInfo(int idx, String nickname, String email, String name) {
 		this.idx = idx;
 		this.nickname = nickname;
