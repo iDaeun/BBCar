@@ -320,13 +320,13 @@ float: left;
                 "top": (($(window).height() - $("#popupDiv").outerHeight()) / 2 + $(window).scrollTop()) + "px",
                 "left": (($(window).width() - $("#popupDiv").outerWidth()) / 2 + $(window).scrollLeft()) + "px"
                 //팝업창을 가운데로 띄우기 위해 현재 화면의 가운데 값과 스크롤 값을 계산하여 팝업창 CSS 설정
-
             });
 
             $("#popup_mask").css("display", "block"); //팝업 뒷배경 display block
             $("#popupDiv").css("display", "block"); //팝업창 display block
 
-            $("body").css("overflow", "hidden"); //body 스크롤바 없애기
+            //$("body").css("overflow", "hidden"); //body 스크롤바 없애기
+            $(".rightDiv").hide();
 
             $("#popCloseBtn").click(function(event) {
                 $('#pw1').val('');
@@ -334,7 +334,8 @@ float: left;
                 $('#pw3').val('');
                 $("#popup_mask").css("display", "none"); //팝업창 뒷배경 display none
                 $("#popupDiv").css("display", "none"); //팝업창 display none
-                $("body").css("overflow", "auto"); //body 스크롤바 생성 
+                $(".rightDiv").show();
+                //$("body").css("overflow", "auto"); //body 스크롤바 생성 
             });
 
 
@@ -355,7 +356,7 @@ float: left;
             // ("=")로 분리해서 값 받아오기
             var user = params[0].split("=")[1];
 
-            alert('[임시비밀번호로 로그인 = temp, 일반 로그인 = undefined] 지금 당신은 ==> ' + user);
+            console.log('[임시비밀번호로 로그인 = temp, 일반 로그인 = undefined] 지금 당신은 ==> ' + user);
 
             if (user == 'temp') {
                 // 정보수정 폼 띄우기
@@ -376,8 +377,8 @@ float: left;
                 	
                 	for(var i=0; i<data.length; i++){
                 		var html = data[i].place+" <a href=\"#\" class=\"btn py-1 px-4 btn-primary\">경로 수정</a>";
-                		console.log("경로 확인:::"+data[i].place);
-                		console.log("html내용:::"+html);
+                		console.log("(1) 경로 확인:::"+data[i].place);
+                		console.log("(1) html내용:::"+html);
                 		$("#myPlace>li>span:first").replaceWith(html);
                 	}
                 },
@@ -393,7 +394,7 @@ float: left;
                 type: 'GET',
                 success: function(data) {
                 	
-	                	console.log("환경 확인:::"+data.p_option);
+	                	console.log("(2) 환경 확인:::"+data.p_option);
 	                	var option = data.p_option;
 	                	
 	                	if(option.includes('a')){
