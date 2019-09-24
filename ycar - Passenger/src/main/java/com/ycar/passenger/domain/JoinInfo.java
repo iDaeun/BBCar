@@ -15,6 +15,7 @@ public class JoinInfo {
 	private String cnum; 
 
 	private String name;
+	private char gender;
 
 	private String p_option; 
 
@@ -22,22 +23,24 @@ public class JoinInfo {
 	public JoinInfo() {
 
 	}
-
+	
 	@Override
 	public String toString() {
 		return "JoinInfo [p_idx=" + p_idx + ", type=" + type + ", id=" + id + ", pw=" + pw + ", email=" + email
 				+ ", ctype=" + ctype + ", company=" + company + ", cemail=" + cemail + ", cnum=" + cnum + ", name="
-				+ name + ", p_option=" + p_option + "]";
+				+ name + ", gender=" + gender + ", p_option=" + p_option + "]";
 	}
-	
+
+
+
 	// E인증 + 간단가입
 	public PassengerSE toPassengerSE() {
-		return new PassengerSE(type, name, ctype, company, cemail, id, pw, email, p_option);
+		return new PassengerSE(type, name, ctype, company, cemail, id, pw, email, p_option, gender);
 	}
 	
 	// P인증 + 간단가입
 	public PassengerSP toPassengerSP() {
-		return new PassengerSP(type, name, ctype, company, cnum, id, pw, cemail, p_option);
+		return new PassengerSP(type, name, ctype, company, cnum, id, pw, cemail, p_option, gender);
 	}
 
 	public int getP_idx() {
@@ -126,6 +129,18 @@ public class JoinInfo {
 
 	public void setP_option(String p_option) {
 		this.p_option = p_option;
+	}
+
+
+
+	public char getGender() {
+		return gender;
+	}
+
+
+
+	public void setGender(char gender) {
+		this.gender = gender;
 	}
 	
 	

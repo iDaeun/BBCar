@@ -16,6 +16,7 @@ public class PassengerOrigin {
 
 	private String name;
 	private String nickname;
+	private char gender;
 
 	private String p_option;
 
@@ -24,12 +25,13 @@ public class PassengerOrigin {
 
 	}
 
-	public PassengerOrigin(String type, String name, String ctype, String company, String p_option) {
+	public PassengerOrigin(String type, String name, String ctype, String company, String p_option, char gender) {
 		this.type = type;
 		this.name = name;
 		this.ctype = ctype;
 		this.company = company;
 		this.p_option = p_option;
+		this.gender = gender;
 		makeNickName();
 	}
 
@@ -134,6 +136,14 @@ public class PassengerOrigin {
 
 	public void setP_option(String p_option) {
 		this.p_option = p_option;
+	}
+
+	public char getGender() {
+		return gender;
+	}
+
+	public void setGender(char gender) {
+		this.gender = gender;
 	}
 	
 	

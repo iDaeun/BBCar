@@ -12,8 +12,8 @@ public class PassengerE extends PassengerOrigin{
 	 * @param company
 	 * @param cemail
 	 */
-	public PassengerE(String type, String name, String ctype, String company, String cemail, String p_option) {
-		super(type, name, ctype, company, p_option);
+	public PassengerE(String type, String name, String ctype, String company, String cemail, String p_option, char gender) {
+		super(type, name, ctype, company, p_option, gender);
 		this.cemail = cemail;
 	}
 	

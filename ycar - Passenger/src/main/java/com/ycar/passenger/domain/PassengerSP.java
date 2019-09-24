@@ -20,8 +20,8 @@ public class PassengerSP extends PassengerP {
 	 * @param company
 	 * @param cnum
 	 */
-	public PassengerSP(String type, String name, String ctype, String company, String cnum, String id, String pw, String email, String p_option) {
-		super(type, name, ctype, company, cnum, p_option);
+	public PassengerSP(String type, String name, String ctype, String company, String cnum, String id, String pw, String email, String p_option, char gender) {
+		super(type, name, ctype, company, cnum, p_option, gender);
 		this.id = id;
 		this.pw = pw;
 		this.email = email;

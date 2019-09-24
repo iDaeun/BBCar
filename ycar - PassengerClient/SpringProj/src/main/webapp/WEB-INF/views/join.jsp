@@ -154,16 +154,10 @@
                         </form>
                         
                         
-                        <!-- <form class="p-3 bg-light search-property-1" id="signUpForm3">
-                            <div class="day-wrap"><h3 class="pl-5">Join ycar::운전자 인증</h3></div>
+                         <form class="p-3 bg-light search-property-1" id="signUpForm3">
+                            <div class="day-wrap"><h3 class="pl-5">Join ycar::주민등록증 인증</h3></div>                           
                             <div class="form-group">
-                                <label for="lscnum">운전면허번호</label>
-                                <input type="text" class="form-control" id="lscnum">
-                                <span id="lscnumchkmsg"></span>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="name">Name</label>
+                                <label for="name">이름</label>
                                 <input type="text" class="form-control" id="name">
                                 <span id="namechkmsg"></span>
                             </div>
@@ -178,6 +172,12 @@
                                 <input type="text" class="form-control" id="idnum2">
                                 <span id="idnum2chkmsg"></span>
                             </div>
+                            <div class="form-group pt-3">
+                                <input type="button" value="prev" class="btn py-3 px-4 btn-black" id="prev3"><input type="button" value="next" class="btn py-3 px-4 btn-primary" id="next3" onclick="step4()">
+                            </div>
+                            </form>
+                            
+                            <!-------------------------------------------------------------------------------
                             <div class="form-group">
                                 <label for="lsctype">면허 종류</label>
                                 <div class="form-field">
@@ -206,6 +206,7 @@
 
                         </form>
                         
+                        ---------------------------------------------------------------------------
                         <form class="p-3 bg-light search-property-1" id="signUpForm4">
                             <div class="day-wrap"><h3 class="pl-5">Join ycar::자동차등록</h3></div>
                             <div class="form-group">

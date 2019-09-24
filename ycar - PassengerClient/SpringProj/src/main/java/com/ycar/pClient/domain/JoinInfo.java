@@ -21,7 +21,7 @@ public class JoinInfo {
 	// private String idnum2;
 
 	// private String nickname;
-	// private char gender;
+	private char gender;
 
 	private String p_option; // --
 
@@ -30,12 +30,16 @@ public class JoinInfo {
 
 	}
 
+	
+
 	@Override
 	public String toString() {
 		return "JoinInfo [p_idx=" + p_idx + ", type=" + type + ", id=" + id + ", pw=" + pw + ", email=" + email
 				+ ", ctype=" + ctype + ", company=" + company + ", cemail=" + cemail + ", cnum=" + cnum + ", name="
-				+ name + ", p_option=" + p_option + "]";
+				+ name + ", gender=" + gender + ", p_option=" + p_option + "]";
 	}
+
+
 
 	public int getP_idx() {
 		return p_idx;
@@ -123,6 +127,18 @@ public class JoinInfo {
 
 	public void setP_option(String p_option) {
 		this.p_option = p_option;
+	}
+
+
+
+	public char getGender() {
+		return gender;
+	}
+
+
+
+	public void setGender(char gender) {
+		this.gender = gender;
 	}
 
 }

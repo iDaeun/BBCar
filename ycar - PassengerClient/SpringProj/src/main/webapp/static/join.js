@@ -63,30 +63,31 @@ function step3() {
 
 		sessionStorage.setItem("step2", JSON.stringify(step2));
 		$('#signUpForm2').css("display", "none");
-		//$('#signUpForm3').css("display", "block"); 운전면허 & 자동차등록 패스
-		$('#signUpForm5').css("display", "block"); // 선호 운전환경으로 
+		$('#signUpForm3').css("display", "block"); // 운전면허증 ---> 민증 인증
+		// $('#signUpForm5').css("display", "block"); // 선호 운전환경으로 
 	} else {
 		alert('인증 후에 다음 단계로 진행됩니다.');
 	}
 }
 
 // ************ 운전면허증 ----> 민증양식으로 바꿔야함!!!!!!!!
-/*function step4() {
+function step4() {
 	var step3 = {
-		lscnum : $('#lscnum').val(),
+		//lscnum : $('#lscnum').val(),
 		name : $('#name').val(),
 		idnum1 : $('#idnum1').val(),
-		idnum2 : $('#idnum2').val(),
-		lsctype : $('#lsctype option:selected').val(),
-		sdate : $('#sdate').val(),
-		police : $('#police').val()
+		idnum2 : $('#idnum2').val()
+		//lsctype : $('#lsctype option:selected').val(),
+		//sdate : $('#sdate').val(),
+		//police : $('#police').val()
 	}
 	sessionStorage.setItem("step3", JSON.stringify(step3));
-	 풀려면 var orderDetail = JSON.parse(sessionStorage.getItem("step1")) 
+	// 풀려면 var orderDetail = JSON.parse(sessionStorage.getItem("step1")) 
 
 	$('#signUpForm3').css("display", "none");
-	$('#signUpForm4').css("display", "block");
-}*/
+	// $('#signUpForm4').css("display", "block");
+	$('#signUpForm5').css("display", "block"); // 선호 운전환경으로 
+}
 
 /*function step5() {
 	var step4 = {
@@ -104,7 +105,7 @@ function join() {
 	var option = getType(); // 배열로 들어감.
 
 	var all2 = JSON.parse(sessionStorage.getItem("step2"));
-	//var all3 = JSON.parse(sessionStorage.getItem("step3"));
+	var all3 = JSON.parse(sessionStorage.getItem("step3"));
 	//var all4 = JSON.parse(sessionStorage.getItem("step4"));
 
 	var ctype = all2.ctype;
@@ -117,9 +118,9 @@ function join() {
 
 		//lscnum : all3.lscnum, // 운전면허증번호
 		//name : all3.name, ************** 이름 설정!!!!!!!!!!!!!!!!
-		name : "이름 설정 해줘야해!!!",
-		//idnum1 : all3.idnum1, // 주민번호앞6자리
-		//idnum2 : all3.idnum2, // 주민번호뒤1자리
+		name : all3.name, // 이름
+		idnum1 : all3.idnum1, // 주민번호앞6자리
+		idnum2 : all3.idnum2, // 주민번호뒤1자리
 		//lsctype : all3.lsctype, // 면허종류
 		//police : all3.police, // 허가경찰청장
 		//sdate : all3.sdate, // 허가일
@@ -147,12 +148,12 @@ function join() {
 		all.cnum = all2.cnum;
 	}
 	// 분기처리 성별
-	/*if (all3.idnum2 == "1" || all3.idnum2 == "3") {
+	if (all3.idnum2 == "1" || all3.idnum2 == "3") {
 		all.gender = "M";
 
 	} else if (all3.idnum2 == "2" || all3.idnum2 == "4") {
 		all.gender = "F";
-	}*/
+	}
 	console.log(all);
 	console.log(JSON.stringify(all));
 
@@ -180,7 +181,7 @@ function join() {
 	sessionStorage.removeItem("jointype");
 	sessionStorage.removeItem("step1");
 	sessionStorage.removeItem("step2");
-	//sessionStorage.removeItem("step3");
+	sessionStorage.removeItem("step3");
 	//sessionStorage.removeItem("step4");
 }
 

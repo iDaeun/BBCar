@@ -25,10 +25,10 @@
 	<!-- 회원가입 -->
 	<insert id="insertPassengerSE" parameterType="com.ycar.passenger.domain.PassengerSE" useGeneratedKeys="true" keyProperty="p_idx">
 		insert into ycar.PASSENGER(id, pw, name, nickname, type, email
-			,ctype, company, cemail, p_option					
+			,ctype, company, cemail, p_option, gender					
 		)
 		values(#{id},#{pw},#{name},#{nickname},#{type}, #{email}
-			,#{ctype},#{company},#{cemail},#{p_option}
+			,#{ctype},#{company},#{cemail},#{p_option},#{gender}
 		)
 	
 	</insert>
@@ -36,10 +36,10 @@
 	<!-- 회원가입 -->
 	<insert id="insertPassengerSP" parameterType="com.ycar.passenger.domain.PassengerSP" useGeneratedKeys="true" keyProperty="p_idx">
 		insert into ycar.PASSENGER(id, pw, name, nickname, type, email
-			,ctype, company, cemail, p_option					
+			,ctype, company, cemail, p_option, gender					
 		)
 		values(#{id},#{pw},#{name},#{nickname},#{type}, #{email}
-			,#{ctype},#{company},#{cemail},#{p_option}
+			,#{ctype},#{company},#{cemail},#{p_option}, #{gender}
 		)
 	
 	</insert>
