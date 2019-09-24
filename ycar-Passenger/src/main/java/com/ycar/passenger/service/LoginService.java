@@ -85,7 +85,7 @@ public class LoginService {
 		PassengerInfo info = dao.selectByName(name);
 
 		// 아이디 존재 + 일반 회원으로 회원가입 + 이름 일치 + 이메일 일치
-		if (info != null && info.getType() == null && info.getName().equals(name) && info.getEmail().equals(email)) {
+		if (info != null && info.getType().equals("S") && info.getName().equals(name) && info.getEmail().equals(email)) {
 			// 아이디 문자열 부분 치환 (뒷5자리는 "*"로)
 			StringBuffer buffer = new StringBuffer();
 			buffer.append(info.getId().substring(0, info.getId().length() - 5));
@@ -134,7 +134,7 @@ public class LoginService {
 		PassengerInfo info = dao.selectByName(name);
 
 		// 아이디 존재 + 일반 회원으로 회원가입 + 이름 일치 + 이메일 일치
-		if (info != null && info.getType() == null && info.getName().equals(name) && info.getEmail().equals(email)) {
+		if (info != null && info.getType().equals("S") && info.getName().equals(name) && info.getEmail().equals(email)) {
 			
 			// 임시비밀번호 발송 -> verify = N으로 변경
 			Map<String,String> map = new HashMap<String, String>();
