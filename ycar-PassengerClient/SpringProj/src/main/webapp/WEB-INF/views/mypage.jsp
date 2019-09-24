@@ -11,20 +11,20 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="static/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/animate.css">
 
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="static/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="static/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="static/css/magnific-popup.css">
 
-    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="static/css/aos.css">
 
-    <link rel="stylesheet" href="css/ionicons.min.css">
+    <link rel="stylesheet" href="static/css/ionicons.min.css">
 
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/icomoon.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="static/css/flaticon.css">
+    <link rel="stylesheet" href="static/css/icomoon.css">
+    <link rel="stylesheet" href="static/css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
     <style>
@@ -54,13 +54,17 @@
             background-color: #413A6D;
         }
 
+        /*        section {
+            padding-top: 100px;
+        }*/
+
         #container {
-            margin: 15px;
+            margin: 0 auto;
         }
 
-        div.pt-5 {
-            float: left;
-        }
+        /*div.pt-5 {
+float: left;
+}*/
 
         .hero-wrap {
             margin-bottom: 0;
@@ -100,6 +104,12 @@
             filter: alpha(opacity=80);
             opacity: 0.8;
         }
+
+        /*        .rightDiv {
+        float: left;
+        width: 30%;
+        margin: 10px;
+        }*/
     </style>
 </head>
 
@@ -124,17 +134,20 @@
     </nav>
 
     <section class="hero-wrap" data-stellar-background-ratio="0.5">
+
         <div class="container">
 
-            <div class="comment-form-wrap pt-5">
-                <div class="sidebar-box ftco-animate">
-                    <h2 class="heading-sidebar">내 정보</h2>
-                    <ul class="categories">
-                        <li><a href="#">${login.name} (${login.id})</a></li>
-                        <li><a href="#">${login.email}</a></li>
-                        <li><a href="#">오늘의 닉네임 : ${login.nickname}</a></li>
-                        <li><button class="btn py-3 px-4 btn-primary" style="float: right" id="modeBtn" onclick="editForm()">내 정보 수정</button></li>
-                    </ul>
+            <div class="rightDiv">
+                <div class="comment-form-wrap pt-5">
+                    <div class="sidebar-box ftco-animate">
+                        <h2 class="heading-sidebar">내 정보</h2>
+                        <ul class="categories">
+                            <li><input type="hidden" id="sessionIdx" value="${login.idx}"><a>${login.name} (${login.id})</a></li>
+                            <li><a>${login.email}</a></li>
+                            <li><a>오늘의 닉네임 : ${login.nickname}</a></li>
+                            <li><button class="btn py-3 px-4 btn-primary" style="float: right" id="modeBtn" onclick="editForm()">내 정보 수정</button></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
@@ -175,17 +188,34 @@
                     </tr>
                 </table>
             </div>
+            <!--<div id="myInfoEdit" class="comment-form-wrap pt-5">
 
-            <div id="myInfoEdit" class="comment-form-wrap pt-5">
+</div>-->
 
+            <div class="rightDiv">
+                <div class="comment-form-wrap pt-5">
+                    <div class="sidebar-box ftco-animate">
+                        <h2 class="heading-sidebar">즐겨찾는 장소</h2>
+                        <ul class="categories" id="myPlace">
+                            <li><span>즐겨찾는 장소를 설정해주세요 <a href="#" class="btn py-1 px-4 btn-primary">경로 추가</a></span></li>
+                            <li><span>즐겨찾는 장소를 설정해주세요 <a href="#" class="btn py-1 px-4 btn btn-primary">경로 추가</a></span></li>
+                            <li><span>즐겨찾는 장소를 설정해주세요 <a href="#" class="btn py-1 px-4 btn btn-primary">경로 추가</a></span></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
-            <!--<div class="rightDiv">
-    <h2>즐겨찾는 장소</h2>
-</div>
-<div class="rightDiv">
-    <h2>선호 탑승 환경</h2>
-</div>-->
+            <div class="rightDiv">
+                <div class="comment-form-wrap pt-5">
+                    <div class="sidebar-box ftco-animate">
+                        <h2 class="heading-sidebar">선호 탑승 환경</h2>
+                        <ul id="myEnv" class="categories">
+                        </ul>
+                        <a href="#" class="btn py-1 px-4 btn btn-primary" style="float:right">수정</a>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -196,22 +226,22 @@
             <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
 
 
-    <script src="js/jquery.min.js"></script>
-    <script src="js/jquery-migrate-3.0.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.easing.1.3.js"></script>
-    <script src="js/jquery.waypoints.min.js"></script>
-    <script src="js/jquery.stellar.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/aos.js"></script>
-    <script src="js/jquery.animateNumber.min.js"></script>
-    <script src="js/scrollax.min.js"></script>
+    <script src="static/js/jquery.min.js"></script>
+    <script src="static/js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="static/js/popper.min.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <script src="static/js/jquery.easing.1.3.js"></script>
+    <script src="static/js/jquery.waypoints.min.js"></script>
+    <script src="static/js/jquery.stellar.min.js"></script>
+    <script src="static/js/owl.carousel.min.js"></script>
+    <script src="static/js/jquery.magnific-popup.min.js"></script>
+    <script src="static/js/aos.js"></script>
+    <script src="static/js/jquery.animateNumber.min.js"></script>
+    <script src="static/js/scrollax.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-    <script src="js/google-map.js"></script>
+    <script src="static/js/google-map.js"></script>
 
-    <script src="js/main.js"></script>
+    <script src="static/js/main.js"></script>
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 
@@ -219,7 +249,13 @@
         $(document).ready(function() {
 
             // 임시비밀번호 발급 회원 로그인 --> 마이페이지에서 비밀번호 수정페이지 띄우기
-            getParams();
+             getParams();
+            
+            // 즐겨찾는 장소 출력
+             getPlace();
+            
+            // 선호 탑승 환경 출력
+             getEnv();
 
             $('#edit').click(function() {
 
@@ -293,7 +329,7 @@
             $("body").css("overflow", "hidden"); //body 스크롤바 없애기
 
             $("#popCloseBtn").click(function(event) {
-            	$('#pw1').val('');
+                $('#pw1').val('');
                 $('#pw2').val('');
                 $('#pw3').val('');
                 $("#popup_mask").css("display", "none"); //팝업창 뒷배경 display none
@@ -327,6 +363,56 @@
                 $('#myInfo').css('display', 'none');
                 editForm();
             }
+        }
+        
+        function getPlace(){
+        	
+        	var idx = $('#sessionIdx').val();
+        	
+        	$.ajax({
+                url: 'http://localhost:8080/findRoute/' + idx,
+                type: 'GET',
+                success: function(data) {
+                	
+                	for(var i=0; i<data.length; i++){
+                		var html = data[i].place+" <a href=\"#\" class=\"btn py-1 px-4 btn-primary\">경로 수정</a>";
+                		console.log("경로 확인:::"+data[i].place);
+                		console.log("html내용:::"+html);
+                		$("#myPlace>li>span:first").replaceWith(html);
+                	}
+                },
+            });
+        }
+        
+        function getEnv(){
+        	
+        	var idx = $('#sessionIdx').val();
+        	
+        	$.ajax({
+                url: 'http://localhost:8080/findEnv/' + idx,
+                type: 'GET',
+                success: function(data) {
+                	
+	                	console.log("환경 확인:::"+data.p_option);
+	                	var option = data.p_option;
+	                	
+	                	if(option.includes('a')){
+	                		$('#myEnv').append("<li><span id=\"a\">a</span></li>");
+	                	}
+	                	if(option.includes('b')){
+	                		$('#myEnv').append("<li><span id=\"b\">b</span></li>");
+	                	}
+	                	if(option.includes('c')){
+	                		$('#myEnv').append("<li><span id=\"c\">c</span></li>");
+	                	}
+	                	if(option.includes('d')){
+	                		$('#myEnv').append("<li><span id=\"d\">d</span></li>");
+	                	}
+	                	if(option.includes('e')){
+	                		$('#myEnv').append("<li><span id=\"e\">e</span></li>");
+	                	}
+                	}
+           	 });
         }
     </script>
 

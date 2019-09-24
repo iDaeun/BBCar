@@ -40,7 +40,7 @@ public class LoginService {
 		// 아이디 존재 여부 확인
 		PassengerInfo info = dao.selectById(id);
 
-		if (info.getType() != null || info == null) {// 존재하지 않는 회원
+		if (info.getType() == null || info == null) {// 존재하지 않는 회원
 			map.put("msg", 1);
 		} else if (info.getVerify() == 'Y' && info.pwMatch(pw)) {
 			// 인증처리된 회원, 정상 로그인

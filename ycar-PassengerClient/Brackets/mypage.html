@@ -52,13 +52,17 @@
             background-color: #413A6D;
         }
 
+        /*        section {
+            padding-top: 100px;
+        }*/
+
         #container {
-            margin: 15px;
+            margin: 0 auto;
         }
 
-        div.pt-5 {
-            float: left;
-        }
+        /*div.pt-5 {
+float: left;
+}*/
 
         .hero-wrap {
             margin-bottom: 0;
@@ -98,6 +102,12 @@
             filter: alpha(opacity=80);
             opacity: 0.8;
         }
+
+        /*        .rightDiv {
+        float: left;
+        width: 30%;
+        margin: 10px;
+        }*/
     </style>
 </head>
 
@@ -122,17 +132,20 @@
     </nav>
 
     <section class="hero-wrap" data-stellar-background-ratio="0.5">
+
         <div class="container">
 
-            <div class="comment-form-wrap pt-5">
-                <div class="sidebar-box ftco-animate">
-                    <h2 class="heading-sidebar">내 정보</h2>
-                    <ul class="categories">
-                        <li><a href="#">${login.name} (${login.id})</a></li>
-                        <li><a href="#">${login.email}</a></li>
-                        <li><a href="#">오늘의 닉네임 : ${login.nickname}</a></li>
-                        <li><button class="btn py-3 px-4 btn-primary" style="float: right" id="modeBtn" onclick="editForm()">내 정보 수정</button></li>
-                    </ul>
+            <div class="rightDiv">
+                <div class="comment-form-wrap pt-5">
+                    <div class="sidebar-box ftco-animate">
+                        <h2 class="heading-sidebar">내 정보</h2>
+                        <ul class="categories">
+                            <li><a>${login.name} (${login.id})</a></li>
+                            <li><a>${login.email}</a></li>
+                            <li><a>오늘의 닉네임 : ${login.nickname}</a></li>
+                            <li><button class="btn py-3 px-4 btn-primary" style="float: right" id="modeBtn" onclick="editForm()">내 정보 수정</button></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
@@ -173,17 +186,39 @@
                     </tr>
                 </table>
             </div>
+            <!--<div id="myInfoEdit" class="comment-form-wrap pt-5">
 
-            <div id="myInfoEdit" class="comment-form-wrap pt-5">
+</div>-->
 
+            <div class="rightDiv">
+                <div class="comment-form-wrap pt-5">
+                    <div class="sidebar-box ftco-animate">
+                        <h2 class="heading-sidebar">즐겨찾는 장소</h2>
+                        <ul class="categories">
+                            <li>루트1 <a href="#" class="btn py-1 px-4 btn-primary">경로 수정</a></li>
+                            <li>루트2 <a href="#" class="btn py-1 px-4 btn btn-primary">경로 수정</a></li>
+                            <li>루트3 <a href="#" class="btn py-1 px-4 btn btn-primary">경로 수정</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
-            <!--<div class="rightDiv">
-    <h2>즐겨찾는 장소</h2>
-</div>
-<div class="rightDiv">
-    <h2>선호 탑승 환경</h2>
-</div>-->
+            <div class="rightDiv">
+                <div class="comment-form-wrap pt-5">
+                    <div class="sidebar-box ftco-animate">
+                        <h2 class="heading-sidebar">선호 탑승 환경</h2>
+                        <ul class="categories">
+                            <li>a</li>
+                            <li>b</li>
+                            <li>c</li>
+                            <li>d</li>
+                            <li>e</li>
+                            <li><a href="#" class="btn py-1 px-4 btn btn-primary">수정</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -217,7 +252,7 @@
         $(document).ready(function() {
 
             // 임시비밀번호 발급 회원 로그인 --> 마이페이지에서 비밀번호 수정페이지 띄우기
-            getParams();
+            // getParams();
 
             $('#edit').click(function() {
 
@@ -251,7 +286,8 @@
                         }
                         if (data == 1) {
                             alert('내 정보 수정 성공!');
-                            backBtn();
+                            // 임시 비밀번호 수정한 경우를 위해 마이페이지 다시 로딩
+                            location.href = "http://localhost:9090/pClient/mypage";
                         }
                         if (data == 2) {
                             alert('*수정오류');
@@ -290,20 +326,15 @@
             $("body").css("overflow", "hidden"); //body 스크롤바 없애기
 
             $("#popCloseBtn").click(function(event) {
+                $('#pw1').val('');
+                $('#pw2').val('');
+                $('#pw3').val('');
                 $("#popup_mask").css("display", "none"); //팝업창 뒷배경 display none
                 $("#popupDiv").css("display", "none"); //팝업창 display none
                 $("body").css("overflow", "auto"); //body 스크롤바 생성 
             });
 
 
-        }
-
-        function backBtn() {
-            $('#pw1').val('');
-            $('#pw2').val('');
-            $('#pw3').val('');
-            $('#myInfoEdit').css('display', 'none');
-            $('#myInfo').css('display', 'block');
         }
 
         function getParams() {
@@ -321,7 +352,7 @@
             // ("=")로 분리해서 값 받아오기
             var user = params[0].split("=")[1];
 
-            //alert('user: ' + user);
+            alert('[임시비밀번호로 로그인 = temp, 일반 로그인 = undefined] 지금 당신은 ==> ' + user);
 
             if (user == 'temp') {
                 // 정보수정 폼 띄우기
