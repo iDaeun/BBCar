@@ -71,11 +71,82 @@ ALTER TABLE ycar.P_ROUTE
 		);
         
 SELECT * FROM ycar.PASSENGER;
-update ycar.PASSENGER set verify='Y' where id='passengerA';
+update ycar.PASSENGER set verify='Y' where id='passengerfff';
+update ycar.PASSENGER set pw='aaaa' where id='passengerA';
+update ycar.PASSENGER set type='S' where id='passengerB';
+update ycar.PASSENGER set type='S' where id='passengerC';
+update ycar.PASSENGER set type='S' where id='passengerA';
 select * from ycar.PASSENGER where id='passengerA';
+update ycar.PASSENGER set name='카카오 사용자' where id='1165366390';
+
+update ycar.PASSENGER set name='testtest' where id='passengerfff';
 
 insert into ycar.PASSENGER (id,nickname,email,verify,type) values ('passengerKakao','kakaokakao','ekdms2309@naver.com','Y','kakao');
 update ycar.PASSENGER set id='1165366390' where id='passengerKakao';
 
 drop table P_COMPANY;
+
+select name, id, nickname, email from ycar.PASSENGER where p_idx = '1';
+
+-- 13	H	서울시 마포구 합정동
+-- 13	C	서울시 종로구 종로2가
+SELECT * FROM ycar.P_ROUTE;
+insert into ycar.P_ROUTE (p_idx,type,place) values ('10','H','서울시 마포구 합정동');
+insert into ycar.P_ROUTE (p_idx,type,place) values ('10','C','서울시 종로구 종로2가');
+
+-- 탑승자 메모 만들기
+-- 메모
+CREATE TABLE ycar.MEMO (
+	m_idx   INT(10)      NOT NULL, -- 메모번호
+	p_idx   INT(10)      NOT NULL, -- 회원번호
+	dr_idx  INT(10)      NOT NULL, -- 카풀등록번호
+	context VARCHAR(100) NULL      -- 메모내용
+);
+
+-- 메모
+ALTER TABLE ycar.MEMO
+	ADD CONSTRAINT PK_MEMO -- 메모 기본키
+		PRIMARY KEY (
+			m_idx -- 메모번호
+		);
+
+-- 메모
+ALTER TABLE ycar.MEMO
+	ADD CONSTRAINT FK_PASSENGER_TO_MEMO -- 탑승자 -> 메모
+		FOREIGN KEY (
+			p_idx -- 회원번호
+		)
+		REFERENCES ycar.PASSENGER ( -- 탑승자
+			p_idx -- 회원번호
+		);
+
+-- 메모
+ALTER TABLE ycar.MEMO
+	ADD CONSTRAINT FK_D_CARPOOL_TO_MEMO -- 운전자카풀등록 -> 메모
+		FOREIGN KEY (
+			dr_idx -- 카풀등록번호
+		)
+		REFERENCES ycar.D_CARPOOL ( -- 운전자카풀등록
+			dr_idx -- 카풀등록번호
+		);
+        
+SELECT * FROM ycar.P_MEMO;
+SELECT * FROM D_CARPOOL;
+SELECT * FROM RESERVATION;
+
+update ycar.RESERVATION set r_confirm = null where r_idx= 29;
+
+select cp.d_idx, cp.d_date, cp.d_starttime, cp.d_endtime, cp.d_startpoint, cp.d_endpoint, cp.d_fee, cp.d_distance from D_CARPOOL as cp
+join RESERVATION as rsv 
+where cp.dr_idx = rsv.dr_idx and rsv.r_confirm is null 
+order by cp.d_date desc;
+
+select * from D_CARPOOL d join RESERVATION r on d.dr_idx = r.dr_idx where  r.r_confirm is null order by d.d_date desc;
+
+select * from D_CARPOOL as cp
+join RESERVATION as rsv 
+where cp.dr_idx = rsv.dr_idx and rsv.r_confirm = 'B' 
+order by cp.d_date desc;
+
+insert into MemoEntity p_idx = 10, dr_idx = 15, context = 'texttext';
 
