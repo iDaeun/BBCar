@@ -1,17 +1,29 @@
 package com.ycar.passenger.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 // 운전자 카풀 등록 table
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 @Table(name = "D_CARPOOL")
 public class DCarpoolEntity {
 
@@ -36,18 +48,35 @@ public class DCarpoolEntity {
 	private int d_fee;
 	@Column
 	private int d_distance;
-	
-	//@OneToMany(cascade = CascadeType.ALL , mappedBy = "dcp")
-	//@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	//@OneToMany(targetEntity = RsvEntity.class)
+
+	// @OneToMany(cascade = CascadeType.ALL , mappedBy = "dcp")
+	// @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	// @OneToMany(targetEntity = RsvEntity.class)
+
+	// @OneToMany(mappedBy = "dcp")
+//	@OneToMany
+
+//	@JoinColumn(name = "dr_idx")
+
+	// @OneToMany
 	/*
-	 * @OneToMany(mappedBy = "dcp") private List<RsvEntity> rsvlist;
-	 * 
-	 * public List<RsvEntity> getRsvlist() { return rsvlist; }
-	 * 
-	 * public void setRsvlist(List<RsvEntity> rsvlist) { this.rsvlist = rsvlist; }
+	 * @JoinTable(name = "joinTable", joinColumns =
+	 * { @JoinColumn(referencedColumnName = "dr_idx") }, inverseJoinColumns =
+	 * { @JoinColumn(referencedColumnName = "dr_idx") })
 	 */
-	
+	@OneToMany(mappedBy = "dcp")
+	//@JoinColumn(name = "dr_idx")
+	private List<RsvEntity> rsvlist = new ArrayList<RsvEntity>();
+
+	public List<RsvEntity> getRsvlist() {
+		return rsvlist;
+	}
+
+	public void setRsvlist(List<RsvEntity> rsvlist) {
+		System.out.println(rsvlist);
+		this.rsvlist = rsvlist;
+	}
+
 	public int getDr_idx() {
 		return dr_idx;
 	}
@@ -118,6 +147,13 @@ public class DCarpoolEntity {
 
 	public void setD_distance(int d_distance) {
 		this.d_distance = d_distance;
+	}
+
+	@Override
+	public String toString() {
+		return "DCarpoolEntity [dr_idx=" + dr_idx + ", d_date=" + d_date + ", d_starttime=" + d_starttime
+				+ ", d_endtime=" + d_endtime + ", d_startpoint=" + d_startpoint + ", d_endpoint=" + d_endpoint
+				+ ", d_commute=" + d_commute + ", d_fee=" + d_fee + ", d_distance=" + d_distance + "]";
 	}
 
 }

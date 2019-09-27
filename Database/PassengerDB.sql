@@ -136,10 +136,19 @@ SELECT * FROM RESERVATION;
 
 update ycar.RESERVATION set r_confirm = null where r_idx= 29;
 
-select cp.d_idx, cp.d_date, cp.d_starttime, cp.d_endtime, cp.d_startpoint, cp.d_endpoint, cp.d_fee, cp.d_distance from D_CARPOOL as cp
-join RESERVATION as rsv 
-where cp.dr_idx = rsv.dr_idx and rsv.r_confirm is null 
-order by cp.d_date desc;
+select rsv.r_idx, rsv.r_confirm, cp.dr_idx, cp.d_idx, cp.d_date, cp.d_starttime, cp.d_endtime, cp.d_startpoint, cp.d_endpoint, cp.d_fee, cp.d_distance from D_CARPOOL as cp
+join RESERVATION as rsv ;
+
+
+select rsv.r_idx, rsv.r_confirm, cp.dr_idx, cp.d_idx, cp.d_date, cp.d_starttime, cp.d_endtime, cp.d_startpoint, cp.d_endpoint, cp.d_fee, cp.d_distance 
+from D_CARPOOL as cp left outer join RESERVATION as rsv on rsv.dr_idx = cp.dr_idx;
+
+-- join한 테이블에서 -> dr_idx검색 ->  r_confirm이 null인 경우는 예약 안한 카풀 목록임 
+-- 예약 가능한 것 : B 또는 null
+
+
+-- where cp.dr_idx = rsv.dr_idx and rsv.r_confirm is null 
+-- order by cp.d_date desc;
 
 select * from D_CARPOOL d join RESERVATION r on d.dr_idx = r.dr_idx where  r.r_confirm is null order by d.d_date desc;
 
@@ -148,5 +157,6 @@ join RESERVATION as rsv
 where cp.dr_idx = rsv.dr_idx and rsv.r_confirm = 'B' 
 order by cp.d_date desc;
 
-insert into MemoEntity p_idx = 10, dr_idx = 15, context = 'texttext';
+insert into P_MEMO (p_idx, dr_idx, context) values (10, 11, 'texttext1');
+select * from P_MEMO;
 

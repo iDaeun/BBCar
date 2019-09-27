@@ -23,22 +23,19 @@
         $('#cpBtn').click(function() {
 
             var pIdx = 10;
-            var dIdx = 15;
+            var dIdx = 26;
 
             $.ajax({
                 url: 'http://localhost:8080/writeMemo/' + pIdx + '/' + dIdx,
                 type: 'POST',
                 data: {
-                    memo: $('memo').val();
+                    memo: $('#memo').val()
                 },
                 success: function(data) {
                     alert(data);
                 },
             });
         });
-
     </script>
 
-</body>
-
-</html>
+</body></html>
