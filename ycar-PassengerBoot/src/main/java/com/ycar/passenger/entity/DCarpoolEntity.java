@@ -19,6 +19,7 @@ import javax.validation.constraints.Null;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 // 운전자 카풀 등록 table
@@ -28,9 +29,11 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 public class DCarpoolEntity {
 
 	@Id
-	@Column(name = "dr_idx")
+	@Column
 	private int dr_idx;
 
+	@Column
+	private int d_idx;
 	@Column
 	@Temporal(TemporalType.DATE)
 	private Date d_date;
@@ -48,6 +51,14 @@ public class DCarpoolEntity {
 	private int d_fee;
 	@Column
 	private int d_distance;
+
+	public DCarpoolEntity() {
+
+	}
+
+	public DCarpoolEntity(int dr_idx) {
+		this.dr_idx = dr_idx;
+	}
 
 	// @OneToMany(cascade = CascadeType.ALL , mappedBy = "dcp")
 	// @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -73,12 +84,19 @@ public class DCarpoolEntity {
 	}
 
 	public void setRsvlist(List<RsvEntity> rsvlist) {
-		System.out.println(rsvlist);
 		this.rsvlist = rsvlist;
 	}
 
 	public int getDr_idx() {
 		return dr_idx;
+	}
+
+	public int getD_idx() {
+		return d_idx;
+	}
+
+	public void setD_idx(int d_idx) {
+		this.d_idx = d_idx;
 	}
 
 	public void setDr_idx(int dr_idx) {
@@ -147,13 +165,6 @@ public class DCarpoolEntity {
 
 	public void setD_distance(int d_distance) {
 		this.d_distance = d_distance;
-	}
-
-	@Override
-	public String toString() {
-		return "DCarpoolEntity [dr_idx=" + dr_idx + ", d_date=" + d_date + ", d_starttime=" + d_starttime
-				+ ", d_endtime=" + d_endtime + ", d_startpoint=" + d_startpoint + ", d_endpoint=" + d_endpoint
-				+ ", d_commute=" + d_commute + ", d_fee=" + d_fee + ", d_distance=" + d_distance + "]";
 	}
 
 }
