@@ -36,6 +36,7 @@ public class MypageController {
 
 	@Autowired
 	private CarPoolRepository cpRepo;
+	
 	@Autowired
 	private RsvRepository rsvRepo;
 
@@ -45,11 +46,11 @@ public class MypageController {
 
 		System.out.println("탑승자 메모 01");
 
-		// List<DCarpoolEntity> list = cpRepo.list();
-		List<DCarpoolEntity> list = cpRepo. findAll();
-		
+		//List<DCarpoolEntity> list = cpRepo.list();
+		List<DCarpoolEntity> list = cpRepo.findAll();
+
 		for (DCarpoolEntity dCarpoolEntity : list) {
-			System.out.println("탑승자 메모 02-1" + dCarpoolEntity);
+			System.out.println("탑승자 메모 02" + dCarpoolEntity);
 
 			/*
 			 * List<RsvEntity> l1 = dCarpoolEntity.getRsvlist(); for (RsvEntity r : l1) {
@@ -60,6 +61,21 @@ public class MypageController {
 
 		return list;
 
+	}
+	
+	// 탑승자가 예약한 카풀 리스트  출력
+	@RequestMapping("/rsvList/{p_idx}")
+	public List<RsvEntity> rsvList(@PathVariable("p_idx") int p_idx){
+		
+		System.out.println("예약 리스트01");
+		
+		List<RsvEntity> list = rsvRepo.findByPIdx(p_idx);
+		
+		for (RsvEntity rsvEntity : list) {
+			System.out.println("rsvEntity : " + rsvEntity);
+		}
+		
+		return list;
 	}
 
 	@Autowired

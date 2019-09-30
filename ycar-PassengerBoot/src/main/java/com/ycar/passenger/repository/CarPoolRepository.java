@@ -17,8 +17,7 @@ public interface CarPoolRepository extends JpaRepository<DCarpoolEntity, Long> {
 	//	join RESERVATION as rsv ;
 	//	-- join한 테이블에서 -> dr_idx검색 ->  r_confirm이 null인 경우는 예약 안한 카풀 목록임 
 	//	-- 예약 가능한 것 : B 또는 null
-	@Query("select d from DCarpoolEntity d join RsvEntity r where r.r_confirm is null order by d.d_date desc")
-	public List<DCarpoolEntity> list(); 
-	
+	//@Query("select d from DCarpoolEntity d join RsvEntity r where r.r_confirm is null or = 'B' order by d.d_date desc")
+	//public List<DCarpoolEntity> list(); 
 	
 }

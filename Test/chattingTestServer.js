@@ -24,10 +24,16 @@ var io = require('socket.io').listen(httpServer);
 // 4. 클라이언트가 socket.io 채널로 접속이 되었을때에 대한 이벤트를 정의
 io.sockets.on('connection', function (socket) { // 연결된 클라이언트의 socket객체를 넘겨받음
 
+    console.log('한명의 사용자가 접속했습니다');
+
+    socket.on('disconnect', function(){
+        console.log('한명의 사용자가 접속해제를 했습니다');
+    });
+
     // 5. 연결된 클라이언트에게 메세지 보냄
     // toclient : 이벤트 명
     // msg : 키, value = 'welcome'
-    socket.emit('toclient', { msg: 'welcome' });
+    socket.emit('toclient', { msg: 'welcome'});
 
     // 6. 클라이언트로부터 오는 메세지 처리
     socket.on('fromclient', function (data) { // 채팅장에서 글쓰면 -> 서버로 'fromclient'라는 이벤트를 보냄
