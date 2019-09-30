@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ycar.passenger.dao.PassengerDaoImpl;
+import com.ycar.passenger.domain.ChattingDomain;
 import com.ycar.passenger.entity.DCarpoolEntity;
 import com.ycar.passenger.entity.MemoEntity;
 import com.ycar.passenger.entity.PRouteEntity;
@@ -26,6 +27,7 @@ import com.ycar.passenger.entity.RsvEntity;
 import com.ycar.passenger.repository.CarPoolRepository;
 import com.ycar.passenger.repository.MemoRepository;
 import com.ycar.passenger.repository.RsvRepository;
+import com.ycar.passenger.service.ChattingService;
 
 @RestController
 @Controller
@@ -36,17 +38,31 @@ public class MypageController {
 
 	@Autowired
 	private CarPoolRepository cpRepo;
-	
 	@Autowired
-	private RsvRepository rsvRepo;
+	private ChattingService chattingService;
 
-	// 등록된 카풀 리스트 출력 : 예약이 아직 되지 않은 카풀 등록 리스트
+	// [채팅] 탑승자가 예약한 카풀 리스트 출력
+	@RequestMapping("/rsvList/{idx}")
+	public List<ChattingDomain> rsvList(@PathVariable("idx") int p_idx) {
+
+		System.out.println("예약 리스트01");
+
+		List<ChattingDomain> list = chattingService.rsvList(p_idx);
+
+		for (ChattingDomain chattingDomain : list) {
+			System.out.println(chattingDomain);
+		}
+
+		return list;
+	}
+
+	// [메모] 등록된 카풀 리스트 출력 : 예약이 아직 되지 않은 카풀 등록 리스트
 	@RequestMapping("/cpList")
 	public List<DCarpoolEntity> cpList() {
 
 		System.out.println("탑승자 메모 01");
 
-		//List<DCarpoolEntity> list = cpRepo.list();
+		// List<DCarpoolEntity> list = cpRepo.list();
 		List<DCarpoolEntity> list = cpRepo.findAll();
 
 		for (DCarpoolEntity dCarpoolEntity : list) {
@@ -62,26 +78,11 @@ public class MypageController {
 		return list;
 
 	}
-	
-	// 탑승자가 예약한 카풀 리스트  출력
-	@RequestMapping("/rsvList/{p_idx}")
-	public List<RsvEntity> rsvList(@PathVariable("p_idx") int p_idx){
-		
-		System.out.println("예약 리스트01");
-		
-		List<RsvEntity> list = rsvRepo.findByPIdx(p_idx);
-		
-		for (RsvEntity rsvEntity : list) {
-			System.out.println("rsvEntity : " + rsvEntity);
-		}
-		
-		return list;
-	}
 
 	@Autowired
 	private MemoRepository mmRepo;
 
-	// 카풀 선택하여 메모 작성 : pIdx = 회원번호 / cIdx = 카풀등록번호
+	// [메모] 카풀 선택하여 메모 작성 : pIdx = 회원번호 / cIdx = 카풀등록번호
 	@PostMapping("/writeMemo/{pIdx}/{dIdx}")
 	public String writeMemo(@PathVariable("pIdx") int pIdx, @PathVariable("dIdx") int dIdx,
 			@RequestParam("memo") String memo) {

@@ -36,7 +36,6 @@ public class RsvEntity {
 
 	//@ManyToOne(targetEntity = DCarpoolEntity.class)
 	@ManyToOne
-	@JsonIgnore
 	@JoinColumn(name = "dr_idx")
 	private DCarpoolEntity dcp;
 
