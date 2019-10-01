@@ -1,0 +1,54 @@
+<html>
+
+<head>
+    <title>client side</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+</head>
+
+<body>
+
+    <b>Driver Send message</b>
+    <button onclick="chooseP()">탑승자 선택</button>
+    <p>
+        Message <input type="text" id="msgbox" /><br>
+        <span id="msgs"></span>
+
+        <script type="text/javascript">
+
+            alert("채팅방에 입장하셨습니다.");
+
+            var socket = io.connect(); // socketIO서버로 연결
+
+            function chooseP(){
+                socket.emit('chooseP',{pIdx : 11});
+            }
+
+            $("#msgbox").keyup(function (event) {
+
+                if (event.which == 13) {
+                    
+                    // input box에서 enter 누르면 메세지를 'fromclient'라는 이벤트를 서버에 전송
+                    socket.emit('fromclient1', { msg: $('#msgbox').val(), pIdx : 11 });
+                    console.log("d send message >> "+ $('#msgbox').val());
+
+                    $('#msgbox').val('');
+
+                }
+
+            });
+
+            // 반대로 서버로부터 'toclient'라는 이벤트가 들어오면
+            // 들어온 문자열 -> msgs라는 span에 append
+            socket.on('toclient1', function (data) {
+
+                console.log("d get message >> "+data);
+
+                $('#msgs').append(data + '<BR>');
+
+            });
+
+        </script>
+</body>
+
+</html>

@@ -8,6 +8,9 @@
             
             // 선호 탑승 환경 출력
              getEnv();
+             
+            // 내 예약 목록
+             getRsv();
 
             $('#edit').click(function() {
 
@@ -166,4 +169,20 @@
 	                	}
                 	}
            	 });
+        }
+        
+        function getRsv(){
+        	
+        	var idx = $('#sessionIdx').val();
+        	
+        	$.ajax({
+                url: 'http://localhost:8080/rsvList/' + idx,
+                type: 'GET',
+                success: function(data) {
+                	
+	                	console.log("리스트 확인:::"+data);
+	                	
+                	}
+           	 });
+        	
         }

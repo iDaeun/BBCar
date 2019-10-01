@@ -43,5 +43,5 @@ io.sockets.on('connection', function (socket) { // 연결된 클라이언트의 
         socket.broadcast.emit('toclient', data); // 자신을 제외하고 다른 클라이언트에게 보냄
         socket.emit('toclient', data); // 자신의 클라이언트에게만(웹) 보냄
         console.log('Message from client : ' + data.msg);
-    })
+    });
 });

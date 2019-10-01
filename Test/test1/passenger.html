@@ -1,0 +1,39 @@
+<html>
+
+<head>
+    <title>client side</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+</head>
+
+<body>
+
+    <b>Passenger Send message</b>
+    <button onclick="chooseP()">탑승자 선택</button>
+    <p>
+        Message <input type="text" id="msgbox" /><br>
+        <span id="msgs"></span>
+
+        <script type="text/javascript">
+
+            alert("채팅방에 입장하셨습니다.");
+
+            //var socket = io.connect('http://xxx.com', { port: 8001 });
+            var socket = io.connect('http://localhost:3000');
+
+            socket.on('connect', function () {
+                socket.emit('login', { uid: 'passenger' });
+            });
+
+            socket.on('message', function (msg) {
+                $('#msgs').append(data.msg + '<BR>');
+            });
+
+            // 글쓴이1에게만 메세지 전송. 브라우저 콘솔에서 원할때 찍는게 나을듯...
+            socket.emit('message special user', { uid: 'driver', msg: '글쓴이1 에게만 보내는 메시지입니다.' });
+
+
+        </script>
+</body>
+
+</html>
