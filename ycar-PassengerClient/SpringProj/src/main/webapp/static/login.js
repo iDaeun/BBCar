@@ -1,15 +1,17 @@
       // KAKAO :: 사용할 앱의 JavaScript 키를 설정해 주세요.
         Kakao.init('b4d22862e49da7bced7dc7592288a369');
 
-        var userType = sessionStorage.getItem("userType"); // 메인페이지에서 사용자가 선택한 사용자 타입
+        //var userType = sessionStorage.getItem("userType"); // 메인페이지에서 사용자가 선택한 사용자 타입
 
         $(document).ready(
             function() {
 
-                if (userType == null) {
-                    alert('사용자모드를 먼저 선택해주세요!');
-                    location.href = "http://localhost:9090/pClient";
-                }
+//                if (userType == null) {
+//                    alert('사용자모드를 먼저 선택해주세요!');
+//                    location.href = "http://localhost:9090/pClient";
+//                }
+            	
+            	var userType = 1;
 
                 $('#form').css('display', 'block');
 

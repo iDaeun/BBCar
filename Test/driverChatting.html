@@ -9,7 +9,6 @@
 <body>
 
     <b>Driver Send message</b>
-    <button onclick="chooseP()">탑승자 선택</button>
     <p>
         Message <input type="text" id="msgbox" /><br>
         <span id="msgs"></span>
@@ -18,19 +17,19 @@
 
             alert("채팅방에 입장하셨습니다.");
 
-            var socket = io.connect(); // socketIO서버로 연결
+            var result;
+            fnGetParameterByName('pIdx');
+            alert('고른 탑승자' + result);
 
-            function chooseP(){
-                socket.emit('chooseP',{pIdx : 11});
-            }
+            var socket = io.connect(); // socketIO서버로 연결
 
             $("#msgbox").keyup(function (event) {
 
                 if (event.which == 13) {
-                    
+
                     // input box에서 enter 누르면 메세지를 'fromclient'라는 이벤트를 서버에 전송
-                    socket.emit('fromclient1', { msg: $('#msgbox').val(), pIdx : 11 });
-                    console.log("d send message >> "+ $('#msgbox').val());
+                    socket.emit('fromclient1', { msg: $('#msgbox').val(), pIdx: result });
+                    console.log("d send message >> " + $('#msgbox').val());
 
                     $('#msgbox').val('');
 
@@ -42,11 +41,28 @@
             // 들어온 문자열 -> msgs라는 span에 append
             socket.on('toclient1', function (data) {
 
-                console.log("d get message >> "+data);
+                console.log("d get message >> " + data);
 
-                $('#msgs').append(data + '<BR>');
+                $('#msgs').append('상대방' + ':' + data + '<BR>');
 
             });
+
+            // 내가 쓴거 내 채팅장에 띄우기
+            socket.on('toMe1', function (data) {
+
+                $('#msgs').append('나' + ': ' + data + '<BR>');
+
+            });
+
+            //pIdx 가진 파라미터값 찾기
+            function fnGetParameterByName(name) {
+
+                name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+                var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                    results = regex.exec(location.search);
+
+                result = results === null ? "G" : decodeURIComponent(results[1].replace(/\+/g, " "));
+            }
 
         </script>
 </body>

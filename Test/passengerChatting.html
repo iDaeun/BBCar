@@ -6,33 +6,66 @@
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 </head>
 
+<style>
+    .msgLine {
+        margin: 15px;
+    }
+
+    .msgBox {
+        border: 1px solid black;
+        background: skyblue;
+        padding: 2px 5px;
+        border-radius: 10px;
+    }
+</style>
+
 <body>
 
+    <div id="container">
+        <div id="chatView">
+
+        </div>
+        <form id="chatForm" onsubmit="return false">
+            <input type="text" id="msg">
+            <input type="submit" id="send" value="전송">
+        </form>
+    </div>
+
     <b>Passenger Send message</b>
-    <button onclick="chooseD()">운전자 선택</button>
     <p>
         Message <input type="text" id="msgbox" /><br>
         <span id="msgs"></span>
 
         <script type="text/javascript">
 
+            var chatView = document.getElementById('chatView');
+            var chatForm = document.getElementById('chatForm');
+
             alert("채팅방에 입장하셨습니다.");
 
-            var socket = io.connect(); // socketIO서버로 연결
+            var result;
+            fnGetParameterByName('dIdx');
+            alert('고른 운전자: ' + result);
 
-            function chooseD(){
-                socket.emit('chooseD',{dIdx : 13});
-            }
+            var socket = io.connect(); // socketIO서버로 연결
 
             $("#msgbox").keyup(function (event) {
 
                 if (event.which == 13) {
-                    
-                    // input box에서 enter 누르면 메세지를 'fromclient'라는 이벤트를 서버에 전송
-                    socket.emit('fromclient', { msg: $('#msgbox').val(), dIdx : 13});
-                    console.log("p send message >> "+ $('#msgbox').val());
 
-                    $('#msgbox').val('');
+                    // input box에서 enter 누르면 메세지를 'fromclient'라는 이벤트를 서버에 전송
+                    socket.emit('fromclient', { msg: $('#msgbox').val(), dIdx: result });
+                    console.log("p send message >> " + $('#msgbox').val());
+
+                    var msgLine1 = $('<div class="msgLine">');
+                    var msgBox1 = $('<div class="me">');
+
+                    msgBox1.append(msg.val());
+                    msgBox1.css('display', 'inline-block');
+                    msgLine1.css('text-align', 'right');
+                    msgLine1.append(msgBox);
+
+                    $('#chatView').append(msgLine);
 
                 }
 
@@ -42,11 +75,28 @@
             // 들어온 문자열 -> msgs라는 span에 append
             socket.on('toclient', function (data) {
 
-                console.log("p get message >> "+ data);
+                console.log("p get message >> " + data);
 
-                $('#msgs').append(data + '<BR>');
+                $('#msgs').append('상대방' + ':' + data + '<BR>');
 
             });
+
+            // 내가 쓴거 내 채팅장에 띄우기
+            socket.on('toMe', function (data) {
+
+                $('#msgs').append('나' + ': ' + data + '<BR>');
+
+            });
+
+            //dIdx 파라미터값 찾기
+            function fnGetParameterByName(name) {
+
+                name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+                var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                    results = regex.exec(location.search);
+
+                result = results === null ? "G" : decodeURIComponent(results[1].replace(/\+/g, " "));
+            }
 
         </script>
 </body>
