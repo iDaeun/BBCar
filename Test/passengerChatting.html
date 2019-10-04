@@ -49,125 +49,102 @@
         padding: 2px 5px;
         border-radius: 10px;
     }
+
     .me {
         border: 1px solid black;
         background: rgb(153, 94, 221);
         padding: 2px 5px;
         border-radius: 10px;
     }
+
+    #main {
+        margin: 0 auto;
+        width: fit-content;
+    }
 </style>
 
 <body>
+    <div id="main">
+        <b>Passenger Send message</b>
+        <div id="container">
+            <div id="chatView">
 
-    <b>Passenger Send message</b>
-    <div id="container">
-        <div id="chatView">
-
+            </div>
+            <form id="chatForm" onsubmit="return false">
+                <input type="text" id="msg">
+                <input type="submit" id="send" value="전송">
+            </form>
         </div>
-        <form id="chatForm" onsubmit="return false">
-            <input type="text" id="msg">
-            <input type="submit" id="send" value="전송">
-        </form>
     </div>
 
-        <script type="text/javascript">
+    <script type="text/javascript">
 
-            var chatView = document.getElementById('chatView');
-            var chatForm = document.getElementById('chatForm');
+        var chatView = document.getElementById('chatView');
+        var chatForm = document.getElementById('chatForm');
 
-            alert("채팅방에 입장하셨습니다.");
+        alert("채팅방에 입장하셨습니다.");
 
-            var result;
-            fnGetParameterByName('dIdx');
-            alert('고른 운전자: ' + result);
+        var result;
 
-            var socket = io.connect(); // socketIO서버로 연결
+        // 사용자 닉네임
+        fnGetParameterByName('pNick');
+        fnGetParameterByName('dNick');
 
-            // --------------------
-            chatForm.addEventListener('submit', function () {
-                var msg = $('#msg');
+        var socket = io.connect(); // socketIO서버로 연결
 
-                if (msg.val() == '') {
-                    return;
+        chatForm.addEventListener('submit', function () {
+            var msg = $('#msg');
 
-                } else {
+            if (msg.val() == '') {
+                return;
 
-                    // input box에서 enter 누르면 메세지를 'fromclient'라는 이벤트를 서버에 전송
-                    socket.emit('fromclient', { msg: msg.val(), dIdx: result });
-                    console.log("p send message >> " + msg.val());
+            } else {
 
-                    //socket.emit('SEND', msg.val());
+                // input box에서 enter 누르면 메세지를 'fromclient'라는 이벤트를 서버에 전송
+                socket.emit('fromclient', { msg: msg.val(), dIdx: result });
+                console.log("p send message >> " + msg.val());
 
-                    var msgLine = $('<div class="msgLine">');
-                    var msgBox = $('<div class="me">');
+                //socket.emit('SEND', msg.val());
 
-                    msgBox.append(msg.val());
-                    msgBox.css('display', 'inline-block');
-                    msgLine.css('text-align', 'right');
-                    msgLine.append(msgBox);
-
-                    $('#chatView').append(msgLine);
-
-                    msg.val('');
-                    chatView.scrollTop = chatView.scrollHeight;
-                }
-            });
-
-            socket.on('toclient', function (msg) {
                 var msgLine = $('<div class="msgLine">');
-                var msgBox = $('<div class="msgBox">');
+                var msgBox = $('<div class="me">');
 
-                msgBox.append(msg);
+                msgBox.append(msg.val());
                 msgBox.css('display', 'inline-block');
-
+                msgLine.css('text-align', 'right');
                 msgLine.append(msgBox);
+
                 $('#chatView').append(msgLine);
 
+                msg.val('');
                 chatView.scrollTop = chatView.scrollHeight;
-            });
-            // --------------------
-
-            // $("#msgbox").keyup(function (event) {
-
-            //     if (event.which == 13) {
-
-            //         // input box에서 enter 누르면 메세지를 'fromclient'라는 이벤트를 서버에 전송
-            //         socket.emit('fromclient', { msg: $('#msgbox').val(), dIdx: result });
-            //         console.log("p send message >> " + $('#msgbox').val());
-
-            //         $('#msgbox').val('');
-            //     }
-
-            // });
-
-            // 반대로 서버로부터 'toclient'라는 이벤트가 들어오면
-            // 들어온 문자열 -> msgs라는 span에 append
-            // socket.on('toclient', function (data) {
-
-            //     console.log("p get message >> " + data);
-
-            //     $('#msgs').append('상대방' + ':' + data + '<BR>');
-
-            // });
-
-            // 내가 쓴거 내 채팅장에 띄우기
-            // socket.on('toMe', function (data) {
-
-            //     $('#msgs').append('나' + ': ' + data + '<BR>');
-
-            // });
-
-            //dIdx 파라미터값 찾기
-            function fnGetParameterByName(name) {
-
-                name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-                var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-                    results = regex.exec(location.search);
-
-                result = results === null ? "G" : decodeURIComponent(results[1].replace(/\+/g, " "));
             }
+        });
 
-        </script>
+        socket.on('toclient', function (msg) {
+            var msgLine = $('<div class="msgLine">');
+            var msgBox = $('<div class="msgBox">');
+
+            msgBox.append(msg);
+            msgBox.css('display', 'inline-block');
+
+            msgLine.append(msgBox);
+            $('#chatView').append(msgLine);
+
+            chatView.scrollTop = chatView.scrollHeight;
+        });
+
+        //파라미터값 찾기
+        function fnGetParameterByName(name) {
+
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+
+            result = results === null ? "G" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+
+    </script>
 </body>
 
 </html>

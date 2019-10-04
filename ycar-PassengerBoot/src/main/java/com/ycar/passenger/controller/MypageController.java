@@ -18,7 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ycar.passenger.dao.PassengerDaoImpl;
-import com.ycar.passenger.domain.ChattingDomain;
+import com.ycar.passenger.domain.DChattingDomain;
+import com.ycar.passenger.domain.PChattingDomain;
 import com.ycar.passenger.entity.DCarpoolEntity;
 import com.ycar.passenger.entity.MemoEntity;
 import com.ycar.passenger.entity.PRouteEntity;
@@ -42,19 +43,31 @@ public class MypageController {
 	private ChattingService chattingService;
 
 	// [채팅] 탑승자가 예약한 카풀 리스트 출력
-	@RequestMapping("/rsvList/{idx}")
-	public List<ChattingDomain> rsvList(@PathVariable("idx") int p_idx) {
+	@RequestMapping("/PrsvList/{idx}")
+	public List<PChattingDomain> PrsvList(@PathVariable("idx") int p_idx) {
 
 		System.out.println("예약 리스트01");
 
-		List<ChattingDomain> list = chattingService.rsvList(p_idx);
+		List<PChattingDomain> list = chattingService.PrsvList(p_idx);
 
-		for (ChattingDomain chattingDomain : list) {
+		for (PChattingDomain chattingDomain : list) {
 			System.out.println(chattingDomain);
 		}
 
 		return list;
 	}
+	
+	// [채팅] 드라이버가 등록한 카풀을 예약한 리스트 출력
+	@RequestMapping("/DrsvList/{idx}")
+	public List<DChattingDomain> DrsvList(@PathVariable("idx") int d_idx){
+		
+		System.out.println("예약 리스트02");
+		
+		List<DChattingDomain> list = chattingService.DrsvList(d_idx);
+		
+		return list;
+	}
+	
 
 	// [메모] 등록된 카풀 리스트 출력 : 예약이 아직 되지 않은 카풀 등록 리스트
 	@RequestMapping("/cpList")

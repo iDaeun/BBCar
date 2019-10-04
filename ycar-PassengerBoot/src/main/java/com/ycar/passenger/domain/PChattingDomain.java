@@ -3,7 +3,7 @@ package com.ycar.passenger.domain;
 // 탑승자가 예약한 카풀 정보 
 import java.util.Date;
 
-public class ChattingDomain {
+public class PChattingDomain {
 
 	private int dr_idx;
 	private String r_confirm;
@@ -31,7 +31,7 @@ public class ChattingDomain {
 	 * @param d_fee
 	 * @param d_distance
 	 */
-	public ChattingDomain(int dr_idx, String r_confirm, int d_idx, Date date, String d_starttime, String d_endtime,
+	public PChattingDomain(int dr_idx, String r_confirm, int d_idx, Date date, String d_starttime, String d_endtime,
 			String d_startpoint, String d_endpoint, String d_commute, int d_fee, int d_distance, String d_nickname) {
 		this.dr_idx = dr_idx;
 		this.r_confirm = r_confirm;
