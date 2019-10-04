@@ -7,6 +7,38 @@
 </head>
 
 <style>
+    #container {
+        width: 400px;
+        height: 400px;
+        border: 1px solid black;
+        background: ivory;
+    }
+
+    #chatView {
+        height: 90%;
+        overflow-y: scroll;
+    }
+
+    #chatForm {
+        height: 10%;
+        border-top: 1px solid black;
+        text-align: center;
+    }
+
+    #msg {
+        width: 80%;
+        height: 32px;
+        border-radius: 8px;
+    }
+
+    #send {
+        width: 16%;
+        height: 34px;
+        border-radius: 50px;
+        background: black;
+        color: white;
+    }
+
     .msgLine {
         margin: 15px;
     }
@@ -17,10 +49,17 @@
         padding: 2px 5px;
         border-radius: 10px;
     }
+    .me {
+        border: 1px solid black;
+        background: rgb(153, 94, 221);
+        padding: 2px 5px;
+        border-radius: 10px;
+    }
 </style>
 
 <body>
 
+    <b>Passenger Send message</b>
     <div id="container">
         <div id="chatView">
 
@@ -30,11 +69,6 @@
             <input type="submit" id="send" value="전송">
         </form>
     </div>
-
-    <b>Passenger Send message</b>
-    <p>
-        Message <input type="text" id="msgbox" /><br>
-        <span id="msgs"></span>
 
         <script type="text/javascript">
 
@@ -49,44 +83,79 @@
 
             var socket = io.connect(); // socketIO서버로 연결
 
-            $("#msgbox").keyup(function (event) {
+            // --------------------
+            chatForm.addEventListener('submit', function () {
+                var msg = $('#msg');
 
-                if (event.which == 13) {
+                if (msg.val() == '') {
+                    return;
+
+                } else {
 
                     // input box에서 enter 누르면 메세지를 'fromclient'라는 이벤트를 서버에 전송
-                    socket.emit('fromclient', { msg: $('#msgbox').val(), dIdx: result });
-                    console.log("p send message >> " + $('#msgbox').val());
+                    socket.emit('fromclient', { msg: msg.val(), dIdx: result });
+                    console.log("p send message >> " + msg.val());
 
-                    var msgLine1 = $('<div class="msgLine">');
-                    var msgBox1 = $('<div class="me">');
+                    //socket.emit('SEND', msg.val());
 
-                    msgBox1.append(msg.val());
-                    msgBox1.css('display', 'inline-block');
-                    msgLine1.css('text-align', 'right');
-                    msgLine1.append(msgBox);
+                    var msgLine = $('<div class="msgLine">');
+                    var msgBox = $('<div class="me">');
+
+                    msgBox.append(msg.val());
+                    msgBox.css('display', 'inline-block');
+                    msgLine.css('text-align', 'right');
+                    msgLine.append(msgBox);
 
                     $('#chatView').append(msgLine);
 
+                    msg.val('');
+                    chatView.scrollTop = chatView.scrollHeight;
                 }
-
             });
+
+            socket.on('toclient', function (msg) {
+                var msgLine = $('<div class="msgLine">');
+                var msgBox = $('<div class="msgBox">');
+
+                msgBox.append(msg);
+                msgBox.css('display', 'inline-block');
+
+                msgLine.append(msgBox);
+                $('#chatView').append(msgLine);
+
+                chatView.scrollTop = chatView.scrollHeight;
+            });
+            // --------------------
+
+            // $("#msgbox").keyup(function (event) {
+
+            //     if (event.which == 13) {
+
+            //         // input box에서 enter 누르면 메세지를 'fromclient'라는 이벤트를 서버에 전송
+            //         socket.emit('fromclient', { msg: $('#msgbox').val(), dIdx: result });
+            //         console.log("p send message >> " + $('#msgbox').val());
+
+            //         $('#msgbox').val('');
+            //     }
+
+            // });
 
             // 반대로 서버로부터 'toclient'라는 이벤트가 들어오면
             // 들어온 문자열 -> msgs라는 span에 append
-            socket.on('toclient', function (data) {
+            // socket.on('toclient', function (data) {
 
-                console.log("p get message >> " + data);
+            //     console.log("p get message >> " + data);
 
-                $('#msgs').append('상대방' + ':' + data + '<BR>');
+            //     $('#msgs').append('상대방' + ':' + data + '<BR>');
 
-            });
+            // });
 
             // 내가 쓴거 내 채팅장에 띄우기
-            socket.on('toMe', function (data) {
+            // socket.on('toMe', function (data) {
 
-                $('#msgs').append('나' + ': ' + data + '<BR>');
+            //     $('#msgs').append('나' + ': ' + data + '<BR>');
 
-            });
+            // });
 
             //dIdx 파라미터값 찾기
             function fnGetParameterByName(name) {

@@ -21,8 +21,8 @@
             var idx = 11;
 
             $.ajax({
-                url: 'http://localhost:8080/writeMemo/' + pIdx + '/' + dIdx,
-                type: 'POST',
+                url: 'http://localhost:3000/' + idx,
+                type: 'GET',
                 data: {
                     memo: $('#memo').val()
                 },

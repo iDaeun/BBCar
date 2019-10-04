@@ -10,7 +10,7 @@ var login_ids = {};
 // 1. Express 사용
 var app = express();
 
-// P 뷰 페이지에서 '채팅하기 버튼' -> localhost:3000/chatting?pIdx=ㅁ&dIdx=ㅁ
+// P 뷰 페이지에서 '채팅하기 버튼' -> localhost:3000/chatting?pIdx=ㅁ&dIdx=ㅁ&pNick=ㅁ
 app.get('/chatting', (req, res) => {
 
     Idx = req.query.pIdx;
@@ -20,7 +20,7 @@ app.get('/chatting', (req, res) => {
 
 });
 
-// D 뷰 페이지에서 '채팅하기 버튼' -> localhost:3000/chatting1?dIdx=ㅁ&pIdx=ㅁ
+// D 뷰 페이지에서 '채팅하기 버튼' -> localhost:3000/chatting1?dIdx=ㅁ&pIdx=ㅁ$dNick=ㅁ
 app.get('/chatting1', (req, res) => {
 
     Idx = req.query.dIdx;
@@ -61,7 +61,7 @@ io.sockets.on('connection', function (socket) {
         //응답메시지전송
         sendResponse(socket, 'message', '200', '메시지를전송했습니다.');
         //socket.broadcast.emit('toclient', data); // 자신을 제외하고 다른 클라이언트에게 보냄
-        socket.emit('toMe', data.msg); // 자신의 클라이언트에게만(웹) 보냄
+        //socket.emit('toMe', data.msg); // 자신의 클라이언트에게만(웹) 보냄
         console.log('Message from passenger : ' + data.msg);
     });
 
@@ -76,7 +76,7 @@ io.sockets.on('connection', function (socket) {
         //응답메시지전송
         sendResponse(socket, 'message', '200', '메시지를전송했습니다.');
         //socket.broadcast.emit('toclient', data); // 자신을 제외하고 다른 클라이언트에게 보냄
-        socket.emit('toMe1', data.msg); // 자신의 클라이언트에게만(웹) 보냄
+        //socket.emit('toMe1', data.msg); // 자신의 클라이언트에게만(웹) 보냄
         console.log('Message from driver : ' + data.msg);
     });
 
