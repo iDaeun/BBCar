@@ -91,8 +91,8 @@ select name, id, nickname, email from ycar.PASSENGER where p_idx = '1';
 -- 13	H	서울시 마포구 합정동
 -- 13	C	서울시 종로구 종로2가
 SELECT * FROM ycar.P_ROUTE;
-insert into ycar.P_ROUTE (p_idx,type,place) values ('10','H','서울시 마포구 합정동');
-insert into ycar.P_ROUTE (p_idx,type,place) values ('10','C','서울시 종로구 종로2가');
+insert into ycar.P_ROUTE (p_idx,type,place) values ('11','H','서울시 마포구 합정동');
+insert into ycar.P_ROUTE (p_idx,type,place) values ('11','C','서울시 종로구 종로2가');
 
 -- 탑승자 메모 만들기
 -- 메모
@@ -132,6 +132,7 @@ ALTER TABLE ycar.MEMO
         
 SELECT * FROM ycar.P_MEMO;
 SELECT * FROM D_CARPOOL;
+SELECT count(*) from D_CARPOOL;
 SELECT * FROM RESERVATION;
 
 update ycar.RESERVATION set r_confirm = null where r_idx= 29;
@@ -140,8 +141,16 @@ select rsv.r_idx, rsv.r_confirm, cp.dr_idx, cp.d_idx, cp.d_date, cp.d_starttime,
 join RESERVATION as rsv ;
 
 
+-- 등록된 카풀 리스트 출력 : 예약이 아직 되지 않은 카풀 등록 리스트
 select rsv.r_idx, rsv.r_confirm, cp.dr_idx, cp.d_idx, cp.d_date, cp.d_starttime, cp.d_endtime, cp.d_startpoint, cp.d_endpoint, cp.d_fee, cp.d_distance 
-from D_CARPOOL as cp left outer join RESERVATION as rsv on rsv.dr_idx = cp.dr_idx;
+from D_CARPOOL as cp left join RESERVATION as rsv on rsv.dr_idx = cp.dr_idx where rsv.r_confirm is null or rsv.r_confirm = 'B';
+
+-- 탑승자가 예약한 카풀 리스트 
+select rsv.p_idx, rsv.r_idx, rsv.r_confirm, cp.d_commute, cp.dr_idx, cp.d_idx, cp.d_date, cp.d_starttime, cp.d_endtime, cp.d_startpoint, cp.d_endpoint, cp.d_fee, cp.d_distance 
+from D_CARPOOL as cp left join RESERVATION as rsv on rsv.dr_idx = cp.dr_idx where rsv.p_idx = 11;
+
+-- select rsv.r_idx, rsv.r_confirm, cp.dr_idx, cp.d_idx, cp.d_date, cp.d_starttime, cp.d_endtime, cp.d_startpoint, cp.d_endpoint, cp.d_fee, cp.d_distance 
+-- from D_CARPOOL as cp left join RESERVATION as rsv on rsv.dr_idx = cp.dr_idx group by cp.dr_idx;
 
 -- join한 테이블에서 -> dr_idx검색 ->  r_confirm이 null인 경우는 예약 안한 카풀 목록임 
 -- 예약 가능한 것 : B 또는 null
