@@ -35,7 +35,7 @@ import com.ycar.passenger.service.ChattingService;
 @CrossOrigin
 public class MypageController {
 
-	// -- 탑승자 메모 기능 --
+	// -- 채팅 기능 --
 
 	@Autowired
 	private CarPoolRepository cpRepo;
@@ -56,18 +56,19 @@ public class MypageController {
 
 		return list;
 	}
-	
+
 	// [채팅] 드라이버가 등록한 카풀을 예약한 리스트 출력
 	@RequestMapping("/DrsvList/{idx}")
-	public List<DChattingDomain> DrsvList(@PathVariable("idx") int d_idx){
-		
+	public List<DChattingDomain> DrsvList(@PathVariable("idx") int d_idx) {
+
 		System.out.println("예약 리스트02");
-		
+
 		List<DChattingDomain> list = chattingService.DrsvList(d_idx);
-		
+
 		return list;
 	}
-	
+
+	// -- 탑승자 메모 기능 --
 
 	// [메모] 등록된 카풀 리스트 출력 : 예약이 아직 되지 않은 카풀 등록 리스트
 	@RequestMapping("/cpList")

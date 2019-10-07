@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>client</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <style>
+        .card {
+            margin: 10px;
+            padding: 5px;
+            border: 3px solid;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div id="list"></div>
+
+    <script>
+        $(document).ready(function() {
+
+            // 로그인된 탑승자 idx
+            var idx = 11;
+
+            $.ajax({
+                url: 'http://localhost:8080/PrsvList/' + idx,
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                success: function(data) {
+                    alert(JSON.stringify(data));
+                    alert(data.length);
+
+                    var html = '';
+
+                    for (var i = 0; i < data.length; i++) {
+                        html += '<div class="card">\n';
+                        html += 'd_idx : ' + data[i].d_idx + '<br>\n';
+                        html += 'dr_idx : ' + data[i].dr_idx + '<br>\n';
+                        html += 'r_confirm : ' + data[i].r_confirm + '<br>\n';
+                        html += 'date : ' + data[i].date + '<br>\n';
+                        html += 'd_starttime : ' + data[i].d_starttime + '<br>\n';
+                        html += 'd_endtime : ' + data[i].d_endtime + '<br>\n';
+                        html += 'd_starttime : ' + data[i].d_starttime + '<br>\n';
+                        html += 'd_startpoint : ' + data[i].d_startpoint + '<br>\n';
+                        html += 'd_endpoint : ' + data[i].d_endpoint + '<br>\n';
+                        html += 'd_commute : ' + data[i].d_commute + '<br>\n';
+                        html += 'd_fee : ' + data[i].d_fee + '<br>\n';
+                        html += 'd_distance : ' + data[i].d_distance + '<br>\n';
+                        html += 'd_nickname : ' + data[i].d_nickname + '<br>\n';
+                        html += '<button onclick="chatting(' + data[i].d_idx + ',\'' + data[i].d_nickname + '\')">채팅하기</button><br>\n';
+                        html += '</div>\n';
+                    }
+
+                    $('#list').html(html);
+                },
+            });
+        });
+
+        // 채팅방 연결
+        function chatting(dIdx, dNick) {
+
+            alert('dIdx' + dIdx);
+            var pIdx = 11;
+            var pNick = '모던 렛서팬더';
+            var con = confirm('채팅하시겠습니까?');
+
+            if (con) {
+
+                location.href = 'http://localhost:3000/chatting?pIdx=' + pIdx + '&pNick=' + pNick + '&dIdx=' + dIdx + '&dNick=' + dNick;
+            }
+        }
+
+    </script>
+</body>
+
+</html>
