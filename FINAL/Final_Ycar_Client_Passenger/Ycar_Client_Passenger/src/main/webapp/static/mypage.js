@@ -29,7 +29,7 @@
                 }
 
                 $.ajax({
-                    url: 'http://13.125.252.85:8080/passenger/mypage',
+                    url: 'http://localhost:8080/server/members/mypage',
                     type: 'PUT',
                     data: JSON.stringify({
                         id: $('#id').val(),
@@ -44,7 +44,7 @@
                         if (data == 1) {
                             alert('내 정보 수정 성공!');
                             // 임시 비밀번호 수정한 경우를 위해 마이페이지 다시 로딩
-                            location.href = "http://13.125.252.85:8080/passenger/mypage";
+                            location.href = "http://localhost:8080/passenger/mypage";
                         }
                         if (data == 2) {
                             alert('*수정오류');
@@ -152,19 +152,22 @@
 	                	var option = data.p_option;
 	                	
 	                	if(option.includes('a')){
-	                		$('#myEnv').append("<li><span id=\"a\">a</span></li>");
+	                		$('#myEnv').append("<li><span id=\"a\">동성</span></li>");
 	                	}
 	                	if(option.includes('b')){
-	                		$('#myEnv').append("<li><span id=\"b\">b</span></li>");
+	                		$('#myEnv').append("<li><span id=\"b\">조용</span></li>");
 	                	}
 	                	if(option.includes('c')){
-	                		$('#myEnv').append("<li><span id=\"c\">c</span></li>");
+	                		$('#myEnv').append("<li><span id=\"c\">뒷자리 가능</span></li>");
 	                	}
 	                	if(option.includes('d')){
-	                		$('#myEnv').append("<li><span id=\"d\">d</span></li>");
+	                		$('#myEnv').append("<li><span id=\"d\">금연</span></li>");
 	                	}
 	                	if(option.includes('e')){
-	                		$('#myEnv').append("<li><span id=\"e\">e</span></li>");
+	                		$('#myEnv').append("<li><span id=\"e\">천천히</span></li>");
+	                	}
+	                	if(option.includes('f')){
+	                		$('#myEnv').append("<li><span id=\"e\">빠르게</span></li>");
 	                	}
                 	}
            	 });

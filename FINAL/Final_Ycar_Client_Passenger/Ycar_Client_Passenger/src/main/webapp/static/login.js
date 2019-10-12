@@ -4,16 +4,13 @@
         $(document).ready(
             function() {
 
-            	var userType = 1; // 사용자 타입 --> 탑승자
-
                 $('#form').css('display', 'block');
 
                 $('#form')
                     .submit(
                         function() {
                             $.ajax({
-                                url: 'http://13.125.252.85:8080/passenger/login/' +
-                                    userType,
+                                url: 'http://localhost:8080/passenger/login',
                                 type: 'POST',
                                 data: $('#form')
                                     .serialize(),
@@ -27,7 +24,8 @@
                                         $('#form').css(
                                             'display',
                                             'none');
-                                        location.href = "http://13.125.252.85:8080/passenger/rsindex.jsp";
+                                        //location.href = "http://13.125.252.85:8080/passenger/rsindex.jsp";
+                                        location.href = "http://localhost:8080/passenger/mypage";
                                     }
                                     if (data == '3') {
                                         alert('비밀번호 불일치, 다시 로그인해주세요.');
@@ -37,7 +35,7 @@
                                         // 마이페이지 -> 내 정보 수정
                                         // (비밀번호 변경에
                                         // cursor올리기)
-                                        location.href = "http://13.125.252.85:8080/passenger/mypage?user=temp";
+                                        location.href = "http://localhost:8080/passenger/mypage?user=temp";
                                     }
                                 }
                             });
@@ -51,20 +49,18 @@
             // 로그인 창을 띄웁니다.
             Kakao.Auth.login({
                 success: function(authObj) {
-
                     // 정보 확인 -> session에 저장
                     Kakao.API.request({
                         url: '/v2/user/me',
                         success: function(res) {
                             var id = res.id;
                             $.ajax({
-                                url: 'http://13.125.252.85:8080/passenger/login/kakao/' + id +
-                                    '/' + userType,
+                                url: 'http://localhost:8080/passenger/login/kakao/' + id,
                                 type: 'GET',
                                 success: function(data) {
                                     if (data == 'success') {
-                                        alert('정상적으로 로그인되었습니다.');
-                                        $('#form').css('display', 'none');
+                                        alert('[카카오]정상적으로 로그인되었습니다.');
+                                        location.href = "http://localhost:8080/passenger/mypage";
                                     }
                                 }
                             });
@@ -91,7 +87,7 @@
 
         $('#findIdForm').submit(function() {
             $.ajax({
-                url: 'http://13.125.252.85:8080/passenger/login/findId/' + userType,
+                url: 'http://localhost:8080/passenger/login/findId',
                 type: 'POST',
                 data: $('#findIdForm').serialize(),
                 success: function(data) {
@@ -119,7 +115,7 @@
 
         $('#findPwForm').submit(function() {
             $.ajax({
-                url: 'http://13.125.252.85:8080/passenger/login/findPw/' + userType,
+                url: 'http://localhost:8080/passenger/login/findPw',
                 type: 'POST',
                 data: $('#findPwForm').serialize(),
                 success: function(data) {
@@ -146,5 +142,5 @@
 
         // 회원가입으로 이동
         function join() {
-            location.href = "http://13.125.252.85:8080/passenger/join";
+            location.href = "http://localhost:8080/passenger/join";
         }

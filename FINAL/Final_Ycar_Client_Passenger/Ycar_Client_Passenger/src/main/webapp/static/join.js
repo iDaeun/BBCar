@@ -89,18 +89,6 @@ function step4() {
 	$('#signUpForm5').css("display", "block"); // 선호 운전환경으로 
 }
 
-/*function step5() {
-	var step4 = {
-		carnum : $('#carnum').val(),
-		cartype : $('#cartype option:selected').val()
-	}
-	sessionStorage.setItem("step4", JSON.stringify(step4));
-
-	$('#signUpForm4').css("display", "none");
-	$('#signUpForm2').css("display", "none");
-	$('#signUpForm5').css("display", "block");
-}*/
-
 function join() {
 	var option = getType(); // 배열로 들어감.
 
@@ -116,18 +104,9 @@ function join() {
 		ctype : all2.ctype, // 회사인증타입
 		company : all2.company, // 회사명
 
-		//lscnum : all3.lscnum, // 운전면허증번호
-		//name : all3.name, ************** 이름 설정!!!!!!!!!!!!!!!!
 		name : all3.name, // 이름
 		idnum1 : all3.idnum1, // 주민번호앞6자리
 		idnum2 : all3.idnum2, // 주민번호뒤1자리
-		//lsctype : all3.lsctype, // 면허종류
-		//police : all3.police, // 허가경찰청장
-		//sdate : all3.sdate, // 허가일
-
-		//carnum : all4.carnum,
-		//cartype : all4.cartype,
-
 		p_option : option
 
 	};
@@ -158,7 +137,7 @@ function join() {
 	console.log(JSON.stringify(all));
 
 	$.ajax({
-		url : 'http://13.125.252.85:8080/passenger/join',
+		url : 'http://localhost:8080/passenger/join',
 		type : 'post',
 		data : JSON.stringify(all),
 		contentType : 'application/json;charset=utf-8',
@@ -167,12 +146,12 @@ function join() {
 			if (data > 0) {
 				console.log('success성공');
 				// 로그인 페이지로 이동
-				location.href = "http://13.125.252.85:8080/passenger/login";
+				location.href = "http://localhost:8080/passenger/login";
 				
 			} else {
 				console.log('success:실패')
 				// 회원가입 페이지로 이동
-				location.href = "http://13.125.252.85:8080/passenger/join";
+				location.href = "http://localhost:8080/passenger/join";
 			}
 		},
 		error : function(data) {
@@ -240,7 +219,7 @@ $('#id').focusout(function() {
 	} else if (chk) {
 
 		$.ajax({
-			url : 'http://13.125.252.85:8080/server/members/join/idcheck',
+			url : 'http://localhost:8080/server/members/join/idcheck',
 			type : 'GET',
 			data : {
 				id : id
@@ -363,7 +342,7 @@ function verifyEmail() {
 	if (chkbox) {
 		$
 				.ajax({
-					url : 'http://13.125.252.85:8080/server/members/join/mailAuth',
+					url : 'http://localhost:8080/server/members/join/mailAuth',
 					type : 'GET',
 					data : {
 						cemail : cemail
@@ -434,73 +413,6 @@ function verifyCode(code) {
 		return false;
 	}
 }
-// 사업장 있는지 확인
-// function chkCnum() {
-// var company = $('#company').val();
-// var cnum = $('#cnum').val();
-//
-// $.ajax({
-// url :
-// 'http://apis.data.go.kr/B552015/NpsBplcInfoInqireService/getBassInfoSearch?wkpl_nm='
-// + company
-// + '&bzowr_rgst_no='
-// + cnum
-// +
-// '&pageNo=1&startPage=1&numOfRows=1&pageSize=1&serviceKey=QAJekZ746A67XoW4BzNPxQQ6vEzVBNW7duHXxEKHN%2BTcMk5RN8CFMRzRdwZqz%2BTYFTcGrxW%2BgMoc4iuAuvaV2Q%3D%3D',
-// type : 'GET',
-// dataType : 'xml',
-// contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-// error : function(request, status, error) {
-// console.log("code : " + request.status + "\r\nmessage : "
-// + request.reponseText + " \r\n status : " + status);
-// },
-//
-// success : function(res) {
-// var myXML = res.responseText;
-// var JSONConvertedXML = $.xml2json(myXML);
-// var data = JSONConvertedXML;
-// var htmlSrc = new Array();
-//
-// if (data.cmmMsgHeader.returnReasonCode != '00') {
-// htmlSrc.push("<tr><td colspan='2'>");
-// htmlSrc.push(data.cmmMsgHeader.errMsg);
-// htmlSrc.push("</td></tr> ");
-//
-// } else if (data.header.resultCode == '00') {
-//
-// var size = data.items.length;
-//
-// if (size == null)
-// size = 1;
-//
-// if (size == 1) {
-//
-// var target = data.items;
-// htmlSrc.push("<tr>");
-// htmlSrc.push("<td>" + target.wkplNm + "</td>");
-// htmlSrc.push("<td>" + target.dataCrtYm + "</td>");
-// htmlSrc.push("<td>" + target.bzowrRgstNo + "</td>");
-// htmlSrc.push("</tr>");
-//
-// } else if (size > 1) {
-// for (var i = 0; i < size; i++) {
-// var target = data.items[i];
-// htmlSrc.push("<tr>");
-// htmlSrc.push("<td>" + target.wkplNm + "</td>");
-// htmlSrc.push("<td>" + target.dataCrtYm
-// + "</td>");
-// htmlSrc.push("<td>" + target.bzowrRgstNo
-// + "</td>");
-// htmlSrc.push("</tr>");
-//
-// }
-//
-// }
-// }
-// }
-//
-// });
-// }
 
 function displayValPaper() {
 	var chk = $('#pchkbox').prop('checked');
