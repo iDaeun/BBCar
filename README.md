@@ -1,8 +1,4 @@
-# github readme
-
 # 프로젝트명
-
----
 
 🚗Yeon Cha ('연차') - 직장인들을 위한 카풀 웹앱 서비스
 
@@ -17,9 +13,9 @@
 ### 목적
 
 > 2030 비슷한 나이대, 비슷한 직급끼리 카풀을 하면서
-1. 출퇴근 시간을 줄이고
-2. 택시비 절감 / 유류비 절감을 할 수 있다.
-3. 또한, 자신과 비슷한 직무 혹은 다른 업종 사람들과 교류를 할 수 있다.
+> 1. 출퇴근 시간을 줄이고
+> 2. 택시비 절감 / 유류비 절감을 할 수 있다.
+> 3. 또한, 자신과 비슷한 직무 혹은 다른 업종 사람들과 교류를 할 수 있다.
 
 - **기존 서비스와의 차별점**
 
@@ -32,8 +28,6 @@
 ### 전체 소스 코드 [[click!](https://github.com/mand2/y-car-project)]
 
 # 공헌한 내용
-
----
 
 ### 소스 코드
 
@@ -66,8 +60,6 @@
 - 1:1 채팅 : 탑승자 & 운전자 간 채팅 `NodeJs`
 
 # 버전별 업데이트 내역
-
----
 
 [상세 내역은 커밋 내용 참고](https://github.com/iDaeun/BBCar/commits/master)
 
@@ -117,8 +109,6 @@
 
 # 발생한 이슈 & 해결 방법
 
----
-
 **"REST 구조를 더 깊게 이해할 수 있는 계기"**
 
 [상황] 메인 서버에서 로그인 확인 후 회원 정보를 클라이언트 서버 쪽으로 넘겨주어 session을 저장해야 함
@@ -141,20 +131,13 @@
 
 [문제] @Query("select d from DCarpoolEntity d join RsvEntity r where r.r_confirm is null or = 'B' order by d.d_date desc")로 조건을 넣어줬는데 bean을 생성하지 못하거나 'idx'를 찾지 못한다는 여러 오류가 발생
 
-[해결]
-
-@Query를 쓸 때는 @OneToMany & @ManyToOne와 같이 entity내부에서 관계설정을 해주지 못함 (join이 겹치기 때문), @Query를 쓰지 않고 값을 한꺼번에 받아온 다음, service 내에서 필터링 처리 → DTO생성하여 필요한 데이터 넣어줌
+[해결] @Query를 쓸 때는 @OneToMany & @ManyToOne와 같이 entity내부에서 관계설정을 해주지 못함 (join이 겹치기 때문), @Query를 쓰지 않고 값을 한꺼번에 받아온 다음, service 내에서 필터링 처리 → DTO생성하여 필요한 데이터 넣어줌
 
 - JPA @ManyToOne과 @ID
 
-[상황] 
+[상황] 탑승자가 예약한 카풀 리스트를 뽑아야 하는 상황, RESERVATION 테이블 & D_CARPOOL 테이블 JOIN하려고 @ManyToOne으로 관계 설정을 한 뒤 RESERVATION의 p_idx값으로 데이터를 list로 출력해야 함
 
-탑승자가 예약한 카풀 리스트를 뽑아야 하는 상황, RESERVATION 테이블 & D_CARPOOL 테이블 JOIN하려고 @ManyToOne으로 관계 설정을 한 뒤 RESERVATION의 p_idx값으로 데이터를 list로 출력해야 함
-
-[문제]
-
-list으로 출력은 되나 들어있는 데이터가 첫번째 데이터로 반복
-
+[문제] list으로 출력은 되나 들어있는 데이터가 첫번째 데이터로 반복
 예) 뽑아야하는 데이터가 5개면 list 안의 객체가 5개이나 RESERVATION정보 & D_CARPOOL(조인 테이블)정보가 첫번째 객체의 내용으로 반복됨
 
 [해결] RsvEntity (RESERVATION)의 r_idx에 @ID를 부여 (= DB의 RESERVATION 테이블의 pk와 동일하게 맞춤)
@@ -182,7 +165,6 @@ list으로 출력은 되나 들어있는 데이터가 첫번째 데이터로 반
 [문제] 무한루프에 빠짐
 
 [해결] 각 entity 안에서 @Override했던 toString()을 삭제
-
 참고: stackoverflow ([https://stackoverflow.com/questions/17445657/hibernate-onetomany-java-lang-stackoverflowerror/17445773](https://stackoverflow.com/questions/17445657/hibernate-onetomany-java-lang-stackoverflowerror/17445773))
 
 **JPA 깨달은 점 >**
@@ -205,6 +187,8 @@ entity간 관계설정을 해줄때 특히 중요한 점 상황에 맞춰 어떠
 
 [해결] NodeJs의 Socket.io를 사용하여 접속한 운전자, 탑승자가 동시에 채팅이 가능하도록 함
 
+
+
 [상황] 특정 사용자에게 메세지를 보내려면 해당 사용자의 socket.id를 알아야 함
 
 [문제] socket.id는 브라우저를 킬 때마다 새롭게 생성됨, 고유한 key가 되지 못함
@@ -216,22 +200,17 @@ entity간 관계설정을 해줄때 특히 중요한 점 상황에 맞춰 어떠
 [문제] 현재 해당 사용자가 socket에 connected인 상태인지 확인해줘야 함
 
 [해결]  현재 connected된 아이디를 저장할 수 있는 배열 생성, 사용자가 연결/연결해제 시 상대방에게 바로 알람가도록 함
-
 → room을 먼저 생성하여 사용자를 join하는 room 채팅이 더 간편함
 
-**NodeJs [socket.io](http://socket.io) 깨달은 점 >**
+**NodeJs socket.io 깨달은 점 >**
 
-한 명의 운전자와 한 명의 탑승자 간의 채팅이기에 socket.id를 사용하는 1:1 채팅을 구현하였다. 하지만 '입장', '퇴장'과 같이 상대방에게 알람을 띄우는 기능을 구현해보니 room을 먼저 생성하여 사용자를 join하는 room 채팅이 더 간편했다.
-
-socket.id를 사용하는 1:1채팅 vs 클라이언트를 초대하는 room채팅
+한 명의 운전자와 한 명의 탑승자 간의 채팅이기에 socket.id를 사용하는 1:1 채팅을 구현했음. 하지만 '입장', '퇴장'과 같이 상대방에게 알람을 띄우는 기능을 구현해보니 room을 먼저 생성하여 사용자를 join하는 room 채팅이 더 간편하다는 것을 알았음.
 
 # 상세 설명
 
----
-
 ### DB구조 (ERD)
 
-[]()
+![](db.png)
 
 ### 전체 흐름도
 
@@ -245,13 +224,9 @@ socket.id를 사용하는 1:1채팅 vs 클라이언트를 초대하는 room채�
 
 # 시연 영상
 
----
-
 추후 업데이트 예정
 
 # 참여 인원 (5명)
-
----
 
 - 강다은 🏠 [https://github.com/iDaeun](https://github.com/iDaeun)
 - 김나연 🏠 [https://github.com/mand2](https://github.com/mand2)
