@@ -1,6 +1,8 @@
 /**
  * 
  */
+ // KAKAO :: 사용할 앱의 JavaScript 키를 설정해 주세요.
+        Kakao.init('b4d22862e49da7bced7dc7592288a369');
 
 function step1(type) {
 	sessionStorage.setItem("jointype", type);
@@ -9,9 +11,40 @@ function step1(type) {
 	$('#signUpForm').css("display", "block");
 }
 
+//카카오 회원가입
+function loginWithKakao() {
+// 로그인 창을 띄웁니다.
+Kakao.Auth.login({
+    success: function(authObj) {
+        Kakao.API.request({
+            url: '/v2/user/me',
+            success: function(res) {
+                var id = res.id;
+                var email = res.kakao_account.email;
+                
+                var step1 = {
+                		id : id,
+                		email : email
+                }
+                sessionStorage.setItem("step1", JSON.stringify(step1));
+            },
+            fail: function(error) {
+                alert(JSON.stringify(error));
+            }
+        });
+    },
+    fail: function(err) {
+        alert(JSON.stringify(err));
+        alert('[카카오]로그인 실패');
+    }
+});
+}
+
 function jumpToStep2(type) {
 	sessionStorage.setItem("jointype", type);
-
+	
+	loginWithKakao();
+	
 	$('#signUpSelect').css("display", "none");
 	$('#signUpForm2').css("display", "block");
 }
@@ -64,7 +97,6 @@ function step3() {
 		sessionStorage.setItem("step2", JSON.stringify(step2));
 		$('#signUpForm2').css("display", "none");
 		$('#signUpForm3').css("display", "block"); // 운전면허증 ---> 민증 인증
-		// $('#signUpForm5').css("display", "block"); // 선호 운전환경으로 
 	} else {
 		alert('인증 후에 다음 단계로 진행됩니다.');
 	}
@@ -73,19 +105,13 @@ function step3() {
 // ************ 운전면허증 ----> 민증양식으로 바꿔야함!!!!!!!!
 function step4() {
 	var step3 = {
-		//lscnum : $('#lscnum').val(),
 		name : $('#name').val(),
 		idnum1 : $('#idnum1').val(),
 		idnum2 : $('#idnum2').val()
-		//lsctype : $('#lsctype option:selected').val(),
-		//sdate : $('#sdate').val(),
-		//police : $('#police').val()
 	}
 	sessionStorage.setItem("step3", JSON.stringify(step3));
-	// 풀려면 var orderDetail = JSON.parse(sessionStorage.getItem("step1")) 
 
 	$('#signUpForm3').css("display", "none");
-	// $('#signUpForm4').css("display", "block");
 	$('#signUpForm5').css("display", "block"); // 선호 운전환경으로 
 }
 
@@ -94,7 +120,6 @@ function join() {
 
 	var all2 = JSON.parse(sessionStorage.getItem("step2"));
 	var all3 = JSON.parse(sessionStorage.getItem("step3"));
-	//var all4 = JSON.parse(sessionStorage.getItem("step4"));
 
 	var ctype = all2.ctype;
 
@@ -117,7 +142,15 @@ function join() {
 
 		all.id = all1.id; // 아이디
 		all.pw = all1.pw; // 비밀번호
-		all.email = all1.email;
+		all.email = all1.email; // 이메일
+	}
+	
+	// 분기처리 가입타입type이 kakao일 경우
+	if (sessionStorage.getItem("jointype") == "K") {
+		var all1 = JSON.parse(sessionStorage.getItem("step1"));
+
+		all.id = all1.id; // 아이디
+		all.email = all1.email; // 이메일
 	}
 
 	// 분기처리 ctype에 따라

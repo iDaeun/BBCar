@@ -46,7 +46,7 @@ public class LoginController {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("id", id);
 		map.put("pw", pw);
-		
+
 		Map<String, Object> maps = new HashMap<String, Object>();
 
 		maps = rt.postForObject("http://localhost:8080/server/members/login", map, Map.class);
@@ -64,7 +64,10 @@ public class LoginController {
 			String nickname = (String) hashM.get("nickname");
 			String email = (String) hashM.get("email");
 			String name = (String) hashM.get("name");
-			LoginInfo info = new LoginInfo(idx, id, nickname, email, name);
+			char type = hashM.get("type").toString().toCharArray()[0];
+			System.out.println(type);
+
+			LoginInfo info = new LoginInfo(idx, id, nickname, email, name, type);
 
 			session.setAttribute("login", info);
 			System.out.println("(일반)로그인 후 저장된 session:" + session.getAttribute("login"));
@@ -76,7 +79,7 @@ public class LoginController {
 	// 카카오 로그인
 	@RequestMapping(value = "/kakao/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public String kakaoLogin(@PathVariable("id") String id, HttpServletRequest request) {
+	public int kakaoLogin(@PathVariable("id") String id, HttpServletRequest request) {
 
 		RestTemplate rt = new RestTemplate();
 
@@ -84,9 +87,12 @@ public class LoginController {
 
 		maps = rt.getForObject("http://localhost:8080/server/members/login/{id}", Map.class, id);
 
-		
-		// 로그인 성공 시 session에 저장
-		HttpSession session = request.getSession(false);
+		// VIEW에 message전달
+		int msg = (Integer) maps.get("msg");
+
+		if (msg == 2) {
+			// 로그인 성공 시 session에 저장
+			HttpSession session = request.getSession(false);
 			LinkedHashMap<String, Object> hashM = new LinkedHashMap<String, Object>();
 			hashM = (LinkedHashMap<String, Object>) maps.get("login");
 
@@ -94,13 +100,16 @@ public class LoginController {
 			String nickname = (String) hashM.get("nickname");
 			String email = (String) hashM.get("email");
 			String name = (String) hashM.get("name");
-			LoginInfo info = new LoginInfo(idx, id, nickname, email, name);
+			char type = hashM.get("type").toString().toCharArray()[0];
+			System.out.println(type);
+
+			LoginInfo info = new LoginInfo(idx, id, nickname, email, name, type);
 
 			session.setAttribute("login", info);
 			System.out.println("(kakao)로그인 후 저장된 session:" + session.getAttribute("login"));
+		}
 
-
-		return session.getAttribute("login") != null ? "success" : "fail";
+		return msg;
 	}
 
 	// 아이디 찾기

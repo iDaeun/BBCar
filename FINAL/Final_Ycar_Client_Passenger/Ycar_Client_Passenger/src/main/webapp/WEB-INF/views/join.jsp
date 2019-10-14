@@ -253,6 +253,8 @@
     <script src="static/js/scrollax.min.js"></script>
 
     <script src="static/js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
     <script src="static/join.js"></script>
 
 </body></html>

@@ -16,7 +16,7 @@
                                     .serialize(),
                                 success: function(data) {
                                     if (data == '1') {
-                                        alert('존재하지 않는 회원입니다, 다시 로그인해주세요.');
+                                        alert('존재하지 않거나 탈퇴한 회원입니다, 다시 로그인해주세요.');
                                     }
                                     if (data == '2') {
                                         // 정상 로그인
@@ -58,9 +58,12 @@
                                 url: 'http://localhost:8080/passenger/login/kakao/' + id,
                                 type: 'GET',
                                 success: function(data) {
-                                    if (data == 'success') {
+                                    if (data == '2') {
                                         alert('[카카오]정상적으로 로그인되었습니다.');
                                         location.href = "http://localhost:8080/passenger/mypage";
+                                    }
+                                    if (data == '1'){
+                                    	alert('존재하지 않거나 탈퇴한 회원입니다, 다시 로그인해주세요.');
                                     }
                                 }
                             });

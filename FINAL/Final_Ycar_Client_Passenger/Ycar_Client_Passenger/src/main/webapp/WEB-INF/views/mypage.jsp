@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,10 +49,17 @@
                     <div class="sidebar-box ftco-animate">
                         <h2 class="heading-sidebar">내 정보</h2>
                         <ul class="categories">
-                            <li><input type="hidden" id="sessionIdx" value="${login.idx}"><a>${login.name} (${login.id})</a></li>
+                        <c:if test="${fn:contains(login.type,'S')}">
+                            <li><input type="hidden" id="sessionIdx" value="${login.idx}"><a>name : ${login.name} (${login.id})</a></li>
                             <li><a>${login.email}</a></li>
                             <li><a>오늘의 닉네임 : ${login.nickname}</a></li>
                             <li><button class="btn py-3 px-4 btn-primary" style="float: right" id="modeBtn" onclick="editForm()">내 정보 수정</button></li>
+                        </c:if>
+                        <c:if test="${fn:contains(login.type,'K')}">
+                       		<li>카카오 로그인 회원입니다 :-)</li>
+                        	<li><input type="hidden" id="sessionIdx" value="${login.idx}"><a>name : ${login.name}</a></li>
+                        	<li><a>오늘의 닉네임 : ${login.nickname}</a></li>
+                        </c:if>
                         </ul>
                     </div>
                 </div>
@@ -119,7 +129,10 @@
                     </div>
                 </div>
             </div>
-
+	
+			<div style="float: right">
+				<a class="btn py-1 px-4 btn btn-primary" style="float:right" onclick="deleteMem()">회원탈퇴</a>
+			</div>
         </div>
     </section>
 

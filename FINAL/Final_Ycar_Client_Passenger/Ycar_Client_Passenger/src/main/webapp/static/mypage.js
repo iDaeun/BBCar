@@ -188,3 +188,25 @@
            	 });
         	
         }
+        
+        function deleteMem(){
+        	
+        	var idx = $('#sessionIdx').val();
+        	
+        	$.ajax({
+                url: 'http://localhost:8080/passenger/mypage/deleteMem/' + idx,
+                type: 'PUT',
+                success: function(data) {
+                	alert(data);
+                    if (data == 'success') {
+                        alert('회원탈퇴 성공');
+                        location.href = "http://localhost:8080/passenger";
+                    }
+                    if (data == 'fail') {
+                        alert('회원탈퇴 실패');
+                        location.href = "http://localhost:8080/passenger/mypage";
+                    }
+                },
+            });
+        	
+        }
