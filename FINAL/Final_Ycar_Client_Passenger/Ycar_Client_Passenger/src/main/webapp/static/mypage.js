@@ -210,3 +210,60 @@
             });
         	
         }
+        
+        function memo(){
+        	
+        	$.ajax({
+                url: 'http://localhost:8090/cpList',
+                type: 'GET',
+                success: function(data) {
+                	
+                	var html = '';
+                	
+                	for(var i=0; i<data.length; i++){
+                		html += '<table id="memoTable"><tr><td colspan="2">\n';
+                		
+                		if(data[i].r_confirm == 'Y'){
+                			html += '<input type="hidden" value=\"'+data[i].dr_idx+'\" id="dr_idx"><a style="color: black; font-weight: bold">"예약 불가"</a></td></tr>\n';
+                		} else if(data[i].r_confirm == 'B'){
+                			html += '<input type="hidden" value=\"'+data[i].dr_idx+'\" id="dr_idx"><a style="color: red; font-weight: bold">"예약 임박"</a></td></tr>\n';
+                			html += '<a class="btn py-1 px-4 btn btn-primary" style="float:right" onclick="memo()">메모하기</a>';
+                		} else {
+                			html += '<input type="hidden" value=\"'+data[i].dr_idx+'\" id="dr_idx"><a style="color: green; font-weight: bold">"예약 가능"</a></td></tr>\n';
+                			html += '<a class="btn py-1 px-4 btn btn-primary" style="float:right" onclick="memo()">메모하기</a>';
+                		}
+                		
+                		html += '<tr><td>날짜</td><td>'+data[i].date+'</td></tr>\n';
+                		html += '<tr><td>출발시간</td><td>'+data[i].d_starttime+'</td></tr>\n';
+                		html += '<tr><td>도착시간</td><td>'+data[i].d_endtime+'</td></tr>\n';
+                		html += '<tr><td>출발지</td><td>'+data[i].d_startpoint+'</td></tr>\n';
+                		html += '<tr><td>도착지</td><td>'+data[i].d_endpoint+'</td></tr>\n';
+                		html += '<tr><td>출/퇴근</td><td>'+data[i].d_commute+'</td></tr>\n';
+                		html += '<tr><td>카풀비용</td><td>'+data[i].d_fee+'</td></tr>\n';
+                		html += '<tr><td>거리</td><td>'+data[i].d_distance+'km</td></tr></table><hr><br>\n';
+                	}
+                	
+                	$('#memoDiv').html(html);
+                	
+                },
+            });
+        	
+        	// 메모 팝업창
+        	$("#popupDiv2").css({
+                "top": (($(window).height() - $("#popupDiv").outerHeight()) / 2 + $(window).scrollTop()) + "px",
+                "left": (($(window).width() - $("#popupDiv").outerWidth()) / 2 + $(window).scrollLeft()) + "px"
+                //팝업창을 가운데로 띄우기 위해 현재 화면의 가운데 값과 스크롤 값을 계산하여 팝업창 CSS 설정
+            });
+
+            $("#popup_mask2").css("display", "block"); //팝업 뒷배경 display block
+            $("#popupDiv2").css("display", "block"); //팝업창 display block
+
+            $(".rightDiv").hide();
+
+            $("#back").click(function(event) {
+                $("#popup_mask2").css("display", "none"); //팝업창 뒷배경 display none
+                $("#popupDiv2").css("display", "none"); //팝업창 display none
+                $(".rightDiv").show();
+            });
+        	
+        }

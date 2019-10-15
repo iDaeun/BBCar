@@ -102,9 +102,6 @@
                     </tr>
                 </table>
             </div>
-            <!--<div id="myInfoEdit" class="comment-form-wrap pt-5">
-
-</div>-->
 
             <div class="rightDiv">
                 <div class="comment-form-wrap pt-5">
@@ -129,10 +126,20 @@
                     </div>
                 </div>
             </div>
-	
-			<div style="float: right">
-				<a class="btn py-1 px-4 btn btn-primary" style="float:right" onclick="deleteMem()">회원탈퇴</a>
+			
+			<div class="rightDiv" id="bottomDiv">
+				<a class="btn py-1 px-4 btn btn-primary" style="margin-right: 10px;" onclick="memo()">메모하기</a>
+				<a class="btn py-1 px-4 btn btn-primary" onclick="deleteMem()">회원탈퇴</a>
 			</div>
+			
+			<!-- 메모 팝업 배경 DIV -->
+            <div id="popup_mask2"></div>
+            <div id="popupDiv2">
+            	<a class="btn py-1 px-4 btn btn-primary" style="float:right; margin-top: 30px;"id="back">뒤로가기</a>
+            	<br>
+                <!-- 팝업창 -->
+                <div id="memoDiv"></div>
+            </div>
         </div>
     </section>
 

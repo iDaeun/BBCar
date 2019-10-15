@@ -74,6 +74,29 @@ float: left;
             filter: alpha(opacity=80);
             opacity: 0.8;
         }
+        
+        /*팝업창 css*/
+        #popupDiv2 {
+            display: none;
+            margin-top: 50px;
+        }
+
+        /* 팝업 배경 css*/
+        #popup_mask2 {
+            display: none;
+        }
+                
+        #memoDiv{
+        margin: 50px;
+        }
+        
+        #bottomDiv{
+        	margin-bottom: 50px;
+        }
+        
+        #memoTable td{
+        	padding: 5px;
+        }
 
         /*        .rightDiv {
         float: left;

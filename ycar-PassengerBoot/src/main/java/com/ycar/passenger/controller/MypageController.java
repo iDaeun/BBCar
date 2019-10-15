@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ycar.passenger.dao.PassengerDaoImpl;
 import com.ycar.passenger.domain.DChattingDomain;
+import com.ycar.passenger.domain.MemoDomain;
 import com.ycar.passenger.domain.PChattingDomain;
 import com.ycar.passenger.entity.DCarpoolEntity;
 import com.ycar.passenger.entity.MemoEntity;
@@ -29,6 +30,7 @@ import com.ycar.passenger.repository.CarPoolRepository;
 import com.ycar.passenger.repository.MemoRepository;
 import com.ycar.passenger.repository.RsvRepository;
 import com.ycar.passenger.service.ChattingService;
+import com.ycar.passenger.service.MemoService;
 
 @RestController
 @Controller
@@ -37,8 +39,6 @@ public class MypageController {
 
 	// -- 채팅 기능 --
 
-	@Autowired
-	private CarPoolRepository cpRepo;
 	@Autowired
 	private ChattingService chattingService;
 
@@ -69,27 +69,27 @@ public class MypageController {
 	}
 
 	// -- 탑승자 메모 기능 --
-
+	
+	@Autowired
+	private MemoService memoService;
+	
 	// [메모] 등록된 카풀 리스트 출력 : 예약이 아직 되지 않은 카풀 등록 리스트
 	@RequestMapping("/cpList")
-	public List<DCarpoolEntity> cpList() {
+	public List<MemoDomain> cpList() {
 
 		System.out.println("탑승자 메모 01");
+		
+		// r_comfirm에 따라 카풀 예약 상태가 다름 : 
+		// rsv_list가 없거나  r_confirm = null => '지금 예약이 가능합니다!'
+		// Y => 예약 불가
+		// B => 예약 임박
+		List<MemoDomain> cpList = memoService.cpList();
 
-		// List<DCarpoolEntity> list = cpRepo.list();
-		List<DCarpoolEntity> list = cpRepo.findAll();
-
-		for (DCarpoolEntity dCarpoolEntity : list) {
-			System.out.println("탑승자 메모 02" + dCarpoolEntity);
-
-			/*
-			 * List<RsvEntity> l1 = dCarpoolEntity.getRsvlist(); for (RsvEntity r : l1) {
-			 * System.out.println("02-2" + r.getR_confirm()); }
-			 */
-
+		for (MemoDomain memoDomain : cpList) {
+			System.out.println(memoDomain);
 		}
 
-		return list;
+		return cpList;
 
 	}
 
@@ -108,11 +108,9 @@ public class MypageController {
 		return result != null ? "success" : "fail";
 	}
 
-	// 작성한 메모에 대한 카풀이 예약 되었는지 확인 : Y 예약됨 / B 예약 대기
+	// [메모] 메모 수정
 
-	// 메모 수정
-
-	// 메모 삭제
+	// [메모] 메모 삭제
 
 	// --- 탑승자 개인 정보 ---
 
