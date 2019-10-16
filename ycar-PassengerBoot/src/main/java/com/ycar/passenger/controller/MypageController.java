@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -74,6 +76,7 @@ public class MypageController {
 	private MemoService memoService;
 	
 	// [메모] 등록된 카풀 리스트 출력 : 예약이 아직 되지 않은 카풀 등록 리스트
+	// [메모] 메모 출력
 	@RequestMapping("/cpList")
 	public List<MemoDomain> cpList() {
 
@@ -85,10 +88,6 @@ public class MypageController {
 		// B => 예약 임박
 		List<MemoDomain> cpList = memoService.cpList();
 
-		for (MemoDomain memoDomain : cpList) {
-			System.out.println(memoDomain);
-		}
-
 		return cpList;
 
 	}
@@ -96,21 +95,33 @@ public class MypageController {
 	@Autowired
 	private MemoRepository mmRepo;
 
-	// [메모] 카풀 선택하여 메모 작성 : pIdx = 회원번호 / cIdx = 카풀등록번호
-	@PostMapping("/writeMemo/{pIdx}/{dIdx}")
-	public String writeMemo(@PathVariable("pIdx") int pIdx, @PathVariable("dIdx") int dIdx,
+	// [메모] 메모 작성 : 카풀 선택 -> pIdx = 회원번호 / dr_idx = 카풀등록번호
+	@PostMapping("/writeMemo/{pIdx}/{dr_idx}")
+	public String writeMemo(@PathVariable("pIdx") int pIdx, @PathVariable("dr_idx") int dr_idx,
 			@RequestParam("memo") String memo) {
 
-		System.out.println("메모 내용" + memo);
-		MemoEntity result = mmRepo.save(new MemoEntity(pIdx, dIdx, memo));
-		System.out.println(result);
+		MemoEntity result = mmRepo.save(new MemoEntity(pIdx, dr_idx, memo));
 
 		return result != null ? "success" : "fail";
 	}
-
+	
 	// [메모] 메모 수정
+	@PutMapping("/writeMemo/{idx}")
+	public String editMemo(@PathVariable("idx") int idx, @RequestParam("context") String context) {
+				
+		int result = mmRepo.updateContext(idx, context);
+				
+		return result>0?"success":"fail";	
+	}
 
 	// [메모] 메모 삭제
+	@DeleteMapping("/writeMemo/{idx}")
+	public String delMemo(@PathVariable("idx") int idx) {
+		
+		mmRepo.deleteById(idx);
+				
+		return "삭제완료";	
+	}
 
 	// --- 탑승자 개인 정보 ---
 

@@ -227,12 +227,20 @@
                 			html += '<input type="hidden" value=\"'+data[i].dr_idx+'\" id="dr_idx"><a style="color: black; font-weight: bold">"예약 불가"</a></td></tr>\n';
                 		} else if(data[i].r_confirm == 'B'){
                 			html += '<input type="hidden" value=\"'+data[i].dr_idx+'\" id="dr_idx"><a style="color: red; font-weight: bold">"예약 임박"</a></td></tr>\n';
-                			html += '<a class="btn py-1 px-4 btn btn-primary" style="float:right" onclick="memo()">메모하기</a>';
+                			html += '<a class="btn py-1 px-4 btn btn-primary" style="float:right" onclick="writeMemo('+i+')">메모하기</a>';
+                			html += '<tr><td id="'+i+'" class="memoTd"></td></tr>\n';
                 		} else {
                 			html += '<input type="hidden" value=\"'+data[i].dr_idx+'\" id="dr_idx"><a style="color: green; font-weight: bold">"예약 가능"</a></td></tr>\n';
-                			html += '<a class="btn py-1 px-4 btn btn-primary" style="float:right" onclick="memo()">메모하기</a>';
+                			html += '<a class="btn py-1 px-4 btn btn-primary" style="float:right" onclick="writeMemo('+i+')">메모하기</a>';
+                			html += '<tr><td id="'+i+'" class="memoTd"></td></tr>\n';
                 		}
                 		
+                		if(data[i].memo != null){
+                			for(var j=0; j<data[i].memo.length; j++){
+                				html += '<tr><td><a class="myMemo">내 메모 ['+(j+1)+'번]</a></td><td><a class="myMemo"><input type="hidden" value=\"'+data[i].memo[j].m_idx+'\" id="dr_idx">'
+                				+data[i].memo[j].context+'</a> <button class="mmBtn" onclick="editMemo('+data[i].memo[j].m_idx+','+i+')">수정</button> <button class="mmBtn" onclick="delMemo('+data[i].memo[j].m_idx+')">삭제</button> </td></tr>\n';
+                			}
+                		}
                 		html += '<tr><td>날짜</td><td>'+data[i].date+'</td></tr>\n';
                 		html += '<tr><td>출발시간</td><td>'+data[i].d_starttime+'</td></tr>\n';
                 		html += '<tr><td>도착시간</td><td>'+data[i].d_endtime+'</td></tr>\n';
@@ -267,3 +275,98 @@
             });
         	
         }
+        
+        function writeMemo(index){
+        	
+        	var html = '';
+			html += '<div><textarea placeholder="여기에 메모하기" id="memoContents"></textarea>\n';
+			html += '<a class="btn py-1 px-4 btn btn-primary" id="FinMemo" onclick="FinMemo('+index+')">메모등록</a>\n';
+			html += '<a class="btn py-1 px-4 btn btn-primary" style="margin-right: 10px;" id="cancelMemo" onclick="cancelMemo('+index+')">취소</a></div>\n';
+        	
+        	$('#'+index+'').css("display","block");
+        	$('#'+index+'').html(html);
+        }
+        
+        // 메모 등록
+        function FinMemo(index){
+        	var text = $('#memoContents').val();
+        	var pidx = $('#sessionIdx').val();
+        	var dr_idx = $('#dr_idx').val();
+        	        	
+        	$.ajax({
+                url: 'http://localhost:8090/writeMemo/' + pidx + '/' + dr_idx ,
+                type: 'POST',
+                data: {memo : text},
+                success: function(data) {
+                	
+                	alert(data);
+                	
+                	if(data == 'success'){
+                		alert("등록완료!");
+                		memo();
+                	}
+                	if(data == 'fail'){
+                		alert("다시 작성해주세요.");
+               	}
+                	
+           	}
+       });
+    }
+        
+        // 메모 수정
+        function editMemo(idx, index){
+        	
+        	var html = '';
+			html += '<div><textarea placeholder="수정할 내용을 적어주세요" id="editMemoContents"></textarea>\n';
+			html += '<a class="btn py-1 px-4 btn btn-primary" id="FinMemo" onclick="FinEdit('+idx+')">메모수정</a>\n';
+			html += '<a class="btn py-1 px-4 btn btn-primary" style="margin-right: 10px;" id="cancelMemo" onclick="cancelMemo('+index+')">취소</a></div>\n';
+        	
+        	$('#'+index+'').css("display","block");
+        	$('#'+index+'').html(html);
+        	
+        }
+        
+        function FinEdit(idx){
+        	
+        	var context = $('#editMemoContents').val();
+        	
+        	$.ajax({
+                url: 'http://localhost:8090/writeMemo/' + idx,
+                type: 'PUT',
+                data : {context : context},
+                success: function(data) {
+                	
+                	if(data == 'success'){
+                		alert("수정완료!");
+                		memo();
+                	}
+                	if(data == 'fail'){
+                		alert("수정 실패");
+               	}
+                	
+           	}
+       });
+    		
+    	}
+        
+        // 메모 삭제
+        function delMemo(idx){
+        	
+        	$.ajax({
+                url: 'http://localhost:8090/writeMemo/' + idx,
+                type: 'DELETE',
+                success: function(data) {
+                	
+                	alert(data);
+                	memo();                	
+           	}
+       });
+        	
+        }
+        
+        //메모 취소 버튼
+        function cancelMemo(index){
+        	$('#'+index+'').css("display","none");
+        }
+        
+        
