@@ -46,7 +46,7 @@ public class JoinController {
 		HttpEntity<JoinInfo> entity = new HttpEntity<JoinInfo>(joinInfo, headers);
 
 		RestTemplate template = new RestTemplate();
-		return template.exchange("http://localhost:8080/server/members/join", HttpMethod.POST, entity, String.class);
+		return template.exchange("http://13.125.252.85:8080/server/members/join", HttpMethod.POST, entity, String.class);
 	}
 
 }

@@ -49,7 +49,7 @@ public class LoginController {
 
 		Map<String, Object> maps = new HashMap<String, Object>();
 
-		maps = rt.postForObject("http://localhost:8080/server/members/login", map, Map.class);
+		maps = rt.postForObject("http://13.125.252.85:8080/server/members/login", map, Map.class);
 
 		// VIEW에 message전달
 		int msg = (Integer) maps.get("msg");
@@ -85,7 +85,7 @@ public class LoginController {
 
 		Map<String, Object> maps = new HashMap<String, Object>();
 
-		maps = rt.getForObject("http://localhost:8080/server/members/login/{id}", Map.class, id);
+		maps = rt.getForObject("http://13.125.252.85:8080/server/members/login/{id}", Map.class, id);
 
 		// VIEW에 message전달
 		int msg = (Integer) maps.get("msg");
@@ -129,7 +129,7 @@ public class LoginController {
 		int result = 0;
 
 		result = rt
-				.exchange("http://localhost:8080/server/members/login/findId", HttpMethod.POST, entity, Integer.class)
+				.exchange("http://13.125.252.85:8080/server/members/login/findId", HttpMethod.POST, entity, Integer.class)
 				.getBody();
 		// result =
 		// rt.postForObject("http://localhost:9090/passenger/members/login/findId", map,
@@ -150,7 +150,7 @@ public class LoginController {
 
 		int result = 0;
 
-		result = rt.postForObject("http://localhost:8080/server/members/login/findPw", map, Integer.class);
+		result = rt.postForObject("http://13.125.252.85:8080/server/members/login/findPw", map, Integer.class);
 
 		return result;
 	}

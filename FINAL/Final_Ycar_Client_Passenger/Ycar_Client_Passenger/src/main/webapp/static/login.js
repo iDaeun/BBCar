@@ -10,7 +10,7 @@
                     .submit(
                         function() {
                             $.ajax({
-                                url: 'http://localhost:8080/passenger/login',
+                                url: 'http://13.125.252.85:8080/passenger/login',
                                 type: 'POST',
                                 data: $('#form')
                                     .serialize(),
@@ -25,7 +25,7 @@
                                             'display',
                                             'none');
                                         //location.href = "http://13.125.252.85:8080/passenger/rsindex.jsp";
-                                        location.href = "http://localhost:8080/passenger/mypage";
+                                        location.href = "http://13.125.252.85:8080/passenger/rsindex.jsp";
                                     }
                                     if (data == '3') {
                                         alert('비밀번호 불일치, 다시 로그인해주세요.');
@@ -35,7 +35,7 @@
                                         // 마이페이지 -> 내 정보 수정
                                         // (비밀번호 변경에
                                         // cursor올리기)
-                                        location.href = "http://localhost:8080/passenger/mypage?user=temp";
+                                        location.href = "http://13.125.252.85:8080/passenger/mypage?user=temp";
                                     }
                                 }
                             });
@@ -55,12 +55,12 @@
                         success: function(res) {
                             var id = res.id;
                             $.ajax({
-                                url: 'http://localhost:8080/passenger/login/kakao/' + id,
+                                url: 'http://13.125.252.85:8080/passenger/login/kakao/' + id,
                                 type: 'GET',
                                 success: function(data) {
                                     if (data == '2') {
                                         alert('[카카오]정상적으로 로그인되었습니다.');
-                                        location.href = "http://localhost:8080/passenger/mypage";
+                                        location.href = "http://13.125.252.85:8080/passenger/rsindex.jsp";
                                     }
                                     if (data == '1'){
                                     	alert('존재하지 않거나 탈퇴한 회원입니다, 다시 로그인해주세요.');
@@ -90,7 +90,7 @@
 
         $('#findIdForm').submit(function() {
             $.ajax({
-                url: 'http://localhost:8080/passenger/login/findId',
+                url: 'http://13.125.252.85:8080/passenger/login/findId',
                 type: 'POST',
                 data: $('#findIdForm').serialize(),
                 success: function(data) {
@@ -118,7 +118,7 @@
 
         $('#findPwForm').submit(function() {
             $.ajax({
-                url: 'http://localhost:8080/passenger/login/findPw',
+                url: 'http://13.125.252.85:8080/passenger/login/findPw',
                 type: 'POST',
                 data: $('#findPwForm').serialize(),
                 success: function(data) {
@@ -145,5 +145,5 @@
 
         // 회원가입으로 이동
         function join() {
-            location.href = "http://localhost:8080/passenger/join";
+            location.href = "http://13.125.252.85:8080/passenger/join";
         }

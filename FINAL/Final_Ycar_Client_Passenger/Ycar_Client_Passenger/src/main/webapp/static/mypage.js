@@ -29,7 +29,7 @@
                 }
 
                 $.ajax({
-                    url: 'http://localhost:8080/server/members/mypage',
+                    url: 'http://13.125.252.85:8080/server/members/mypage',
                     type: 'PUT',
                     data: JSON.stringify({
                         id: $('#id').val(),
@@ -44,7 +44,7 @@
                         if (data == 1) {
                             alert('내 정보 수정 성공!');
                             // 임시 비밀번호 수정한 경우를 위해 마이페이지 다시 로딩
-                            location.href = "http://localhost:8080/passenger/mypage";
+                            location.href = "http://13.125.252.85:8080/passenger/mypage";
                         }
                         if (data == 2) {
                             alert('*수정오류');
@@ -125,7 +125,7 @@
         	var idx = $('#sessionIdx').val();
         	
         	$.ajax({
-                url: 'http://localhost:8090/findRoute/' + idx,
+                url: 'http://13.209.48.59:8090/findRoute/' + idx,
                 type: 'GET',
                 success: function(data) {
                 	
@@ -144,7 +144,7 @@
         	var idx = $('#sessionIdx').val();
         	
         	$.ajax({
-                url: 'http://localhost:8090/findEnv/' + idx,
+                url: 'http://13.209.48.59:8090/findEnv/' + idx,
                 type: 'GET',
                 success: function(data) {
                 	
@@ -178,7 +178,7 @@
         	var idx = $('#sessionIdx').val();
         	
         	$.ajax({
-                url: 'http://localhost:8090/rsvList/' + idx,
+                url: 'http://13.209.48.59:8090/rsvList/' + idx,
                 type: 'GET',
                 success: function(data) {
                 	
@@ -194,17 +194,17 @@
         	var idx = $('#sessionIdx').val();
         	
         	$.ajax({
-                url: 'http://localhost:8080/passenger/mypage/deleteMem/' + idx,
+                url: 'http://13.125.252.85:8080/passenger/mypage/deleteMem/' + idx,
                 type: 'PUT',
                 success: function(data) {
                 	alert(data);
                     if (data == 'success') {
                         alert('회원탈퇴 성공');
-                        location.href = "http://localhost:8080/passenger";
+                        location.href = "http://13.125.252.85:8080/passenger";
                     }
                     if (data == 'fail') {
                         alert('회원탈퇴 실패');
-                        location.href = "http://localhost:8080/passenger/mypage";
+                        location.href = "http://13.125.252.85:8080/passenger/mypage";
                     }
                 },
             });
@@ -214,7 +214,7 @@
         function memo(){
         	
         	$.ajax({
-                url: 'http://localhost:8090/cpList',
+                url: 'http://13.209.48.59:8090/cpList',
                 type: 'GET',
                 success: function(data) {
                 	
@@ -294,7 +294,7 @@
         	var dr_idx = $('#dr_idx').val();
         	        	
         	$.ajax({
-                url: 'http://localhost:8090/writeMemo/' + pidx + '/' + dr_idx ,
+                url: 'http://13.209.48.59:8090/writeMemo/' + pidx + '/' + dr_idx ,
                 type: 'POST',
                 data: {memo : text},
                 success: function(data) {
@@ -331,7 +331,7 @@
         	var context = $('#editMemoContents').val();
         	
         	$.ajax({
-                url: 'http://localhost:8090/writeMemo/' + idx,
+                url: 'http://13.209.48.59:8090/writeMemo/' + idx,
                 type: 'PUT',
                 data : {context : context},
                 success: function(data) {
@@ -353,7 +353,7 @@
         function delMemo(idx){
         	
         	$.ajax({
-                url: 'http://localhost:8090/writeMemo/' + idx,
+                url: 'http://13.209.48.59:8090/writeMemo/' + idx,
                 type: 'DELETE',
                 success: function(data) {
                 	
