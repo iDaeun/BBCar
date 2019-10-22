@@ -65,6 +65,7 @@
 - <전체> [탑승자용 로그인/회원가입/마이페이지/메모 기능 페이지](https://github.com/iDaeun/BBCar)
 - <서버 - Spring> [로그인/회원가입/마이페이지](https://github.com/iDaeun/BBCar/tree/master/ycar-Passenger)
 - <서버 - SpringBoot> [마이페이지/메모](https://github.com/iDaeun/BBCar/tree/master/ycar-PassengerBoot)
+- <서버 - NodeJs> [1:1채팅](https://github.com/iDaeun/BBCar/tree/master/Test)
 - <클라이언트> [뷰 페이지](https://github.com/iDaeun/BBCar/tree/master/ycar-PassengerClient)
 
 ### 사용한 기술
@@ -74,11 +75,11 @@
 - 결과를 얻어오기 위한 서버 액션 : `JAVA` `JSP` `EL` `jQuery`
 - DB 액션 처리 : `MyBatis` `JPA`
 - DBMS : `MySQL`
-- 개발 Tool : `Eclipse` `Spring Tool Suite` `Apache Tomcat v8.0` `Visual Studio Code` `Ubuntu` `Brackets`
+- 개발 Tool : `Eclipse` `Spring Tool Suite` `Apache Tomcat v8.0` `Visual Studio Code` `Brackets`
 - AWS 배포 : `EC2` `RDS`
 - 로그인 Api : `KakaoTalk API`
 - 프로젝트 구조 : `RESTful API`
-- 프레임워크 : `Spring Framework` `Spring Boot` `NodeJs` `Ruby On Rails`
+- 프레임워크 : `Spring Framework` `Spring Boot` `NodeJs`
 - 프로젝트 관리 Tool : `Google Drive` `GitHub`
 
 ### 주요 기능
@@ -87,7 +88,7 @@
 - 회원가입 : 이메일을 통한 직장인 인증, 선호 환경 검색 `spring`
 - ID찾기/PW찾기 : 아이디 또는 임시비밀번호 email발송 `spring`
 - 마이페이지 : 저장 정보 출력 및 수정 `spring` `spring boot`
-- 메모 : 예약가능 카풀 리스트 출력, 카풀 선택 후 메모 작성 `spring boot` `Ruby on Rails`
+- 메모 : 예약가능 카풀 리스트 출력, 카풀 선택 후 메모 작성/출력/삭제/수정(CRUD) `spring boot`
 - 1:1 채팅 : 탑승자 & 운전자 간 채팅 `NodeJs`
 
 # 버전별 업데이트 내역
@@ -141,7 +142,7 @@
 - 회원탈퇴 기능 구현
 - 메모 기능 구현 완료
 
-... 계속 업데이트 예정
+... 계속 업데이트 예정입니다😊
 
 # 발생한 이슈 & 해결 방법
 
