@@ -258,14 +258,11 @@ entity간 관계설정을 해줄때 특히 중요한 점 상황에 맞춰 어떠
 ![](flow.png)
 
 ### 프로젝트 설명 PPT
-
-[https://docs.google.com/presentation/d/1_1OVTik6grzxKbo3_WMnwzl9_Jl6KYHD/edit?dls=true](https://docs.google.com/presentation/d/1_1OVTik6grzxKbo3_WMnwzl9_Jl6KYHD/edit?dls=true)
-
-추후 업데이트 예정
+[구글 프레젠테이션 파일]
+(https://docs.google.com/presentation/d/1_1OVTik6grzxKbo3_WMnwzl9_Jl6KYHD/edit#slide=id.p1)
 
 # 시연 영상
-
-추후 업데이트 예정
+[유튜브 ](https://www.youtube.com/watch?v=OLT4m52D7nY)
 
 # 참여 인원 (5명)
 
