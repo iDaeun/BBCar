@@ -204,7 +204,8 @@
 [문제] 무한루프에 빠짐
 
 [해결] 각 entity 안에서 @Override했던 toString()을 삭제
-참고: stackoverflow ([https://stackoverflow.com/questions/17445657/hibernate-onetomany-java-lang-stackoverflowerror/17445773](https://stackoverflow.com/questions/17445657/hibernate-onetomany-java-lang-stackoverflowerror/17445773))
+
+참고: [stackoverflow](https://stackoverflow.com/questions/17445657/hibernate-onetomany-java-lang-stackoverflowerror/17445773)
 
 **JPA 깨달은 점 >**
 
@@ -258,11 +259,10 @@ entity간 관계설정을 해줄때 특히 중요한 점 상황에 맞춰 어떠
 ![](flow.png)
 
 ### 프로젝트 설명 PPT
-[구글 프레젠테이션 파일]
-(https://docs.google.com/presentation/d/1_1OVTik6grzxKbo3_WMnwzl9_Jl6KYHD/edit#slide=id.p1)
+[구글 프레젠테이션 파일](https://docs.google.com/presentation/d/1_1OVTik6grzxKbo3_WMnwzl9_Jl6KYHD/edit#slide=id.p1)
 
 # 시연 영상
-[유튜브 ](https://www.youtube.com/watch?v=OLT4m52D7nY)
+[유튜브](https://www.youtube.com/watch?v=OLT4m52D7nY)
 
 # 참여 인원 (5명)
 
